@@ -2,30 +2,22 @@ diff --git a/idioms/lib/trivial/before.nix b/idioms/lib/trivial/after-nixpkgs-fm
 index c68bac9..8949964 100644
 --- a/idioms/lib/trivial/before.nix
 +++ b/idioms/lib/trivial/after-nixpkgs-fmt.nix
-@@ -88,17 +88,17 @@ rec {
-   /* bitwise “and” */
-   bitAnd = builtins.bitAnd
+@@ -90,3 +90,3 @@ rec {
      or (import ./zip-int-bits.nix
 -        (a: b: if a==1 && b==1 then 1 else 0));
 +    (a: b: if a == 1 && b == 1 then 1 else 0));
  
-   /* bitwise “or” */
-   bitOr = builtins.bitOr
+@@ -95,3 +95,3 @@ rec {
      or (import ./zip-int-bits.nix
 -        (a: b: if a==1 || b==1 then 1 else 0));
 +    (a: b: if a == 1 || b == 1 then 1 else 0));
  
-   /* bitwise “xor” */
-   bitXor = builtins.bitXor
+@@ -100,3 +100,3 @@ rec {
      or (import ./zip-int-bits.nix
 -        (a: b: if a!=b then 1 else 0));
 +    (a: b: if a != b then 1 else 0));
  
-   /* bitwise “not” */
-   bitNot = builtins.sub (-1);
-@@ -190,11 +190,12 @@ rec {
-     default:
-     let
+@@ -192,7 +192,8 @@ rec {
        revisionFile = "${toString ./..}/.git-revision";
 -      gitRepo      = "${toString ./..}/.git";
 -    in if lib.pathIsGitRepo gitRepo
@@ -39,68 +31,42 @@ index c68bac9..8949964 100644
 +    else if lib.pathExists revisionFile then lib.fileContents revisionFile
 +    else default;
  
-   nixpkgsVersion = builtins.trace "`lib.nixpkgsVersion` is deprecated, use `lib.version` instead!" version;
- 
-@@ -237,8 +238,8 @@ rec {
-     if a < b
-     then -1
+@@ -239,4 +240,4 @@ rec {
      else if a > b
 -         then 1
 -         else 0;
 +    then 1
 +    else 0;
  
-   /* Split type into two subtypes by predicate `p`, take all elements
-      of the first subtype to be less than all the elements of the
-@@ -314,7 +315,7 @@ rec {
-     Type: string -> a -> a
-   */
+@@ -316,3 +317,3 @@ rec {
    warn =
 -    if lib.elem (builtins.getEnv "NIX_ABORT_ON_WARN") ["1" "true" "yes"]
 +    if lib.elem (builtins.getEnv "NIX_ABORT_ON_WARN") [ "1" "true" "yes" ]
      then msg: builtins.trace "[1;31mwarning: ${msg}[0m" (abort "NIX_ABORT_ON_WARN=true; warnings are treated as unrecoverable errors.")
-     else msg: builtins.trace "[1;31mwarning: ${msg}[0m";
- 
-@@ -361,8 +362,8 @@ rec {
-     let
-       unexpected = lib.subtractLists valid given;
+@@ -363,4 +364,4 @@ rec {
      in
 -      lib.throwIfNot (unexpected == [])
 -        "${msg}: ${builtins.concatStringsSep ", " (builtins.map builtins.toString unexpected)} unexpected; valid ones: ${builtins.concatStringsSep ", " (builtins.map builtins.toString valid)}";
 +    lib.throwIfNot (unexpected == [ ])
 +      "${msg}: ${builtins.concatStringsSep ", " (builtins.map builtins.toString unexpected)} unexpected; valid ones: ${builtins.concatStringsSep ", " (builtins.map builtins.toString valid)}";
  
-   info = msg: builtins.trace "INFO: ${msg}";
- 
-@@ -381,7 +382,8 @@ rec {
-      like callPackage expect to be able to query expected arguments.
-   */
+@@ -383,3 +384,4 @@ rec {
    setFunctionArgs = f: args:
 -    { # TODO: Should we add call-time "type" checking like built in?
 +    {
 +      # TODO: Should we add call-time "type" checking like built in?
        __functor = self: f;
-       __functionArgs = args;
-     };
-@@ -427,7 +429,7 @@ rec {
-             "15" = "F";
-           }.${toString d};
+@@ -429,3 +431,3 @@ rec {
      in
 -      lib.concatMapStrings toHexDigit (toBaseDigits 16 i);
 +    lib.concatMapStrings toHexDigit (toBaseDigits 16 i);
  
-   /* `toBaseDigits base i` converts the positive integer i to a list of its
-      digits in the given base. For example:
-@@ -442,15 +444,15 @@ rec {
-     let
-       go = i:
+@@ -444,3 +446,3 @@ rec {
          if i < base
 -        then [i]
 +        then [ i ]
          else
-           let
-             r = i - ((i / base) * base);
-             q = (i - r) / base;
+@@ -450,7 +452,7 @@ rec {
            in
 -            [r] ++ go q;
 +          [ r ] ++ go q;

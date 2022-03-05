@@ -2,29 +2,19 @@ diff --git a/idioms/lib/trivial/after-nixpkgs-fmt.nix b/idioms/lib/trivial/after
 index 8949964..50127d5 100644
 --- a/idioms/lib/trivial/after-nixpkgs-fmt.nix
 +++ b/idioms/lib/trivial/after-nixfmt.nix
-@@ -11,7 +11,8 @@ rec {
-   */
-   id =
+@@ -13,3 +13,4 @@ rec {
      # The value to return
 -    x: x;
 +    x:
 +    x;
  
-   /* The constant function
- 
-@@ -27,7 +28,8 @@ rec {
-     # Value to return
-     x:
+@@ -29,3 +30,4 @@ rec {
      # Value to ignore
 -    y: x;
 +    y:
 +    x;
  
-   /* Pipes a value through a list of functions, left to right.
- 
-@@ -79,28 +81,25 @@ rec {
-   */
-   concat = x: y: x ++ y;
+@@ -81,24 +83,21 @@ rec {
  
 -  /* boolean “or” */
 +  # boolean “or”
@@ -58,27 +48,19 @@ index 8949964..50127d5 100644
 -  /* bitwise “not” */
 +  # bitwise “not”
    bitNot = builtins.sub (-1);
- 
-   /* Convert a boolean to a string.
-@@ -125,7 +124,8 @@ rec {
-     # Left attribute set
-     x:
+@@ -127,3 +126,4 @@ rec {
      # Right attribute set (higher precedence for equal keys)
 -    y: x // y;
 +    y:
 +    x // y;
  
-   /* Flip the order of the arguments of a binary function.
- 
-@@ -149,21 +149,20 @@ rec {
-     # Function to call
-     f:
+@@ -151,3 +151,4 @@ rec {
      # Argument to check for null before passing it to `f`
 -    a: if a == null then a else f a;
 +    a:
 +    if a == null then a else f a;
  
-   # Pull in some builtins not included elsewhere.
+@@ -155,6 +156,4 @@ rec {
    inherit (builtins)
 -    pathExists readFile isBool
 -    isInt isFloat add sub lessThan
@@ -87,7 +69,7 @@ index 8949964..50127d5 100644
 +    pathExists readFile isBool isInt isFloat add sub lessThan seq deepSeq
 +    genericClosure;
  
-   ## nixpkgs version strings
+@@ -162,6 +161,6 @@ rec {
  
 -  /* Returns the current full nixpkgs version number. */
 +  # Returns the current full nixpkgs version number.
@@ -96,11 +78,7 @@ index 8949964..50127d5 100644
 -  /* Returns the current nixpkgs release number as string. */
 +  # Returns the current nixpkgs release number as string.
    release = lib.strings.fileContents ../.version;
- 
-   /* Returns the current nixpkgs release code name.
-@@ -173,12 +172,12 @@ rec {
-   */
-   codeName = "Quokka";
+@@ -175,8 +174,8 @@ rec {
  
 -  /* Returns the current nixpkgs version suffix as string. */
 -  versionSuffix =
@@ -115,11 +93,7 @@ index 8949964..50127d5 100644
 +  else
 +    "pre-git";
  
-   /* Attempts to return the the current revision of nixpkgs and
-      returns the supplied default value otherwise.
-@@ -191,13 +190,15 @@ rec {
-     let
-       revisionFile = "${toString ./..}/.git-revision";
+@@ -193,9 +192,11 @@ rec {
        gitRepo = "${toString ./..}/.git";
 -    in
 -    if lib.pathIsGitRepo gitRepo
@@ -137,14 +111,7 @@ index 8949964..50127d5 100644
 +  nixpkgsVersion = builtins.trace
 +    "`lib.nixpkgsVersion` is deprecated, use `lib.version` instead!" version;
  
-   /* Determine whether the function is being called from inside a Nix
-      shell.
-@@ -206,13 +207,12 @@ rec {
-   */
-   inNixShell = builtins.getEnv "IN_NIX_SHELL" != "";
- 
--
-   ## Integer operations
+@@ -211,6 +211,6 @@ rec {
  
 -  /* Return minimum of two numbers. */
 +  # Return minimum of two numbers.
@@ -153,19 +120,7 @@ index 8949964..50127d5 100644
 -  /* Return maximum of two numbers. */
 +  # Return maximum of two numbers.
    max = x: y: if x > y then x else y;
- 
-   /* Integer modulus
-@@ -225,7 +225,6 @@ rec {
-   */
-   mod = base: int: base - (int * (builtins.div base int));
- 
--
-   ## Comparisons
- 
-   /* C-style comparisons
-@@ -234,12 +233,7 @@ rec {
-      a == b, compare a b => 0
-      a > b,  compare a b => 1
+@@ -236,8 +235,3 @@ rec {
    */
 -  compare = a: b:
 -    if a < b
@@ -175,11 +130,7 @@ index 8949964..50127d5 100644
 -    else 0;
 +  compare = a: b: if a < b then -1 else if a > b then 1 else 0;
  
-   /* Split type into two subtypes by predicate `p`, take all elements
-      of the first subtype to be less than all the elements of the
-@@ -270,24 +264,19 @@ rec {
-     a:
-     # Second value to compare
+@@ -272,6 +266,3 @@ rec {
      b:
 -    if p a
 -    then if p b then yes a b else -1
@@ -187,27 +138,19 @@ index 8949964..50127d5 100644
 -
 +    if p a then if p b then yes a b else -1 else if p b then 1 else no a b;
  
-   /* Reads a JSON file.
- 
-      Type :: path -> any
+@@ -281,4 +272,3 @@ rec {
    */
 -  importJSON = path:
 -    builtins.fromJSON (builtins.readFile path);
 +  importJSON = path: builtins.fromJSON (builtins.readFile path);
  
-   /* Reads a TOML file.
- 
-      Type :: path -> any
+@@ -288,4 +278,3 @@ rec {
    */
 -  importTOML = path:
 -    builtins.fromTOML (builtins.readFile path);
 +  importTOML = path: builtins.fromTOML (builtins.readFile path);
  
-   ## Warnings
- 
-@@ -304,47 +293,46 @@ rec {
-   # TODO: figure out a clever way to integrate location information from
-   # something like __unsafeGetAttrPos.
+@@ -306,21 +295,22 @@ rec {
  
 -  /*
 -    Print a warning before returning the second argument. This function behaves
@@ -243,7 +186,7 @@ index 8949964..50127d5 100644
 -    Type: bool -> string -> a -> a
 +     Type: bool -> string -> a -> a
    */
-   warnIf = cond: msg: if cond then warn msg else id;
+@@ -328,21 +318,19 @@ rec {
  
 -  /*
 -    Like the `assert b; e` expression, but with a custom error message and
@@ -276,11 +219,7 @@ index 8949964..50127d5 100644
 +         lib.foldr (x: throwIfNot (lib.isFunction x) "All overlays passed to nixpkgs must be functions.") (r: r) overlays
 +         pkgs
    */
-   throwIfNot = cond: msg: if cond then x: x else throw msg;
- 
-@@ -359,11 +347,12 @@ rec {
-      Type: String -> List ComparableVal -> List ComparableVal -> a -> a
-   */
+@@ -361,7 +349,8 @@ rec {
    checkListOfEnum = msg: valid: given:
 -    let
 -      unexpected = lib.subtractLists valid given;
@@ -294,11 +233,7 @@ index 8949964..50127d5 100644
 +      builtins.concatStringsSep ", " (builtins.map builtins.toString valid)
 +    }";
  
-   info = msg: builtins.trace "INFO: ${msg}";
- 
-@@ -381,9 +370,8 @@ rec {
-      function of the { a, b ? foo, ... }: format, but some facilities
-      like callPackage expect to be able to query expected arguments.
+@@ -383,5 +372,4 @@ rec {
    */
 -  setFunctionArgs = f: args:
 -    {
@@ -306,11 +241,7 @@ index 8949964..50127d5 100644
 +  setFunctionArgs =
 +    f: args: { # TODO: Should we add call-time "type" checking like built in?
        __functor = self: f;
-       __functionArgs = args;
-     };
-@@ -395,15 +383,16 @@ rec {
-      setFunctionArgs : (a → b) → Map String Bool.
-   */
+@@ -397,5 +385,6 @@ rec {
    functionArgs = f:
 -    if f ? __functor
 -    then f.__functionArgs or (lib.functionArgs (f.__functor f))
@@ -320,48 +251,34 @@ index 8949964..50127d5 100644
 +    else
 +      builtins.functionArgs f;
  
-   /* Check whether something is a function or something
-      annotated with function args.
+@@ -404,4 +393,4 @@ rec {
    */
 -  isFunction = f: builtins.isFunction f ||
 -    (f ? __functor && isFunction (f.__functor f));
 +  isFunction = f:
 +    builtins.isFunction f || (f ? __functor && isFunction (f.__functor f));
  
-   /* Convert the given positive integer to a string of its hexadecimal
-      representation. For example:
-@@ -417,8 +406,8 @@ rec {
-   toHexString = i:
-     let
+@@ -419,4 +408,4 @@ rec {
        toHexDigit = d:
 -        if d < 10
 -        then toString d
 +        if d < 10 then
 +          toString d
          else
-           {
-             "10" = "A";
-@@ -428,8 +417,7 @@ rec {
-             "14" = "E";
-             "15" = "F";
+@@ -430,4 +419,3 @@ rec {
            }.${toString d};
 -    in
 -    lib.concatMapStrings toHexDigit (toBaseDigits 16 i);
 +    in lib.concatMapStrings toHexDigit (toBaseDigits 16 i);
  
-   /* `toBaseDigits base i` converts the positive integer i to a list of its
-      digits in the given base. For example:
-@@ -443,16 +431,12 @@ rec {
-   toBaseDigits = base: i:
-     let
+@@ -445,4 +433,4 @@ rec {
        go = i:
 -        if i < base
 -        then [ i ]
 +        if i < base then
 +          [ i ]
          else
-           let
-             r = i - ((i / base) * base);
+@@ -451,8 +439,4 @@ rec {
              q = (i - r) / base;
 -          in
 -          [ r ] ++ go q;

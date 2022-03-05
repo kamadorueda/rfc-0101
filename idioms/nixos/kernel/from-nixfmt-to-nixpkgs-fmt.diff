@@ -2,9 +2,7 @@ diff --git a/idioms/nixos/kernel/after-nixfmt.nix b/idioms/nixos/kernel/after-ni
 index fa81fe0..440dd75 100644
 --- a/idioms/nixos/kernel/after-nixfmt.nix
 +++ b/idioms/nixos/kernel/after-nixpkgs-fmt.nix
-@@ -8,11 +8,14 @@ let
-   inherit (config.boot.kernel) features randstructSeed;
-   inherit (config.boot.kernelPackages) kernel;
+@@ -10,7 +10,10 @@ let
  
 -  kernelModulesConf = pkgs.writeText "nixos.conf" ''
 -    ${concatStringsSep "\n" config.boot.kernelModules}
@@ -19,11 +17,7 @@ index fa81fe0..440dd75 100644
 +
 +{
  
-   ###### interface
- 
-@@ -34,15 +37,13 @@ in {
-     boot.kernelPackages = mkOption {
-       default = pkgs.linuxPackages;
+@@ -36,11 +39,9 @@ in {
        type = types.unspecified // { merge = mergeEqualOption; };
 -      apply = kernelPackages:
 -        kernelPackages.extend (self: super: {
@@ -41,11 +35,7 @@ index fa81fe0..440dd75 100644
          });
 +      });
        # We don't want to evaluate all of linuxPackages for the manual
-       # - some of it might not even evaluate correctly.
-       defaultText = literalExpression "pkgs.linuxPackages";
-@@ -201,158 +202,162 @@ in {
- 
-   };
+@@ -203,155 +204,159 @@ in {
  
 -  ###### implementation
 -
@@ -354,4 +344,3 @@ index fa81fe0..440dd75 100644
 +
 +    ];
  
- }

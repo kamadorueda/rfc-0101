@@ -2,7 +2,7 @@ diff --git a/idioms/nixos/kernel/after-alejandra.nix b/idioms/nixos/kernel/after
 index ae087c2..fa81fe0 100644
 --- a/idioms/nixos/kernel/after-alejandra.nix
 +++ b/idioms/nixos/kernel/after-nixfmt.nix
-@@ -1,25 +1,25 @@
+@@ -1,8 +1,7 @@
 -{
 -  config,
 -  lib,
@@ -17,8 +17,7 @@ index ae087c2..fa81fe0 100644
 +let
 +
    inherit (config.boot) kernelPatches;
-   inherit (config.boot.kernel) features randstructSeed;
-   inherit (config.boot.kernelPackages) kernel;
+@@ -11,7 +10,6 @@ with lib; let
  
 -  kernelModulesConf =
 -    pkgs.writeText "nixos.conf"
@@ -30,45 +29,28 @@ index ae087c2..fa81fe0 100644
 +  '';
 +
  in {
-+
-   ###### interface
- 
-   options = {
-+
+@@ -21,3 +21,3 @@ in {
      boot.kernel.features = mkOption {
 -      default = {};
 +      default = { };
        example = literalExpression "{ debug = true; }";
-       internal = true;
-       description = ''
-@@ -33,12 +33,13 @@ in {
- 
-     boot.kernelPackages = mkOption {
+@@ -35,3 +35,3 @@ in {
        default = pkgs.linuxPackages;
 -      type = types.unspecified // {merge = mergeEqualOption;};
 +      type = types.unspecified // { merge = mergeEqualOption; };
        apply = kernelPackages:
-         kernelPackages.extend (self: super: {
-           kernel = super.kernel.override (originalArgs: {
+@@ -40,3 +40,4 @@ in {
              inherit randstructSeed;
 -            kernelPatches = (originalArgs.kernelPatches or []) ++ kernelPatches;
 +            kernelPatches = (originalArgs.kernelPatches or [ ])
 +              ++ kernelPatches;
              features = lib.recursiveUpdate super.kernel.features features;
-           });
-         });
-@@ -62,7 +63,7 @@ in {
- 
-     boot.kernelPatches = mkOption {
+@@ -64,3 +65,3 @@ in {
        type = types.listOf types.attrs;
 -      default = [];
 +      default = [ ];
        example = literalExpression "[ pkgs.kernelPatches.ubuntu_fan_4_4 ]";
-       description = "A list of additional patches to apply to the kernel.";
-     };
-@@ -81,12 +82,11 @@ in {
-     };
- 
+@@ -83,8 +84,7 @@ in {
      boot.kernelParams = mkOption {
 -      type = types.listOf (types.strMatching ''([^"[:space:]]|"[^"]*")+''
 -        // {
@@ -82,71 +64,39 @@ index ae087c2..fa81fe0 100644
 +      });
 +      default = [ ];
        description = "Parameters added to the kernel command line.";
-     };
- 
-@@ -114,14 +114,14 @@ in {
- 
-     boot.extraModulePackages = mkOption {
+@@ -116,3 +116,3 @@ in {
        type = types.listOf types.package;
 -      default = [];
 +      default = [ ];
        example = literalExpression "[ config.boot.kernelPackages.nvidia_x11 ]";
-       description = "A list of additional packages supplying kernel modules.";
-     };
- 
-     boot.kernelModules = mkOption {
+@@ -123,3 +123,3 @@ in {
        type = types.listOf types.str;
 -      default = [];
 +      default = [ ];
        description = ''
-         The set of kernel modules to be loaded in the second stage of
-         the boot process.  Note that modules that are needed to
-@@ -133,8 +133,8 @@ in {
- 
-     boot.initrd.availableKernelModules = mkOption {
+@@ -135,4 +135,4 @@ in {
        type = types.listOf types.str;
 -      default = [];
 -      example = ["sata_nv" "ext3"];
 +      default = [ ];
 +      example = [ "sata_nv" "ext3" ];
        description = ''
-         The set of kernel modules in the initial ramdisk used during the
-         boot process.  This set must include all modules necessary for
-@@ -154,7 +154,7 @@ in {
- 
-     boot.initrd.kernelModules = mkOption {
+@@ -156,3 +156,3 @@ in {
        type = types.listOf types.str;
 -      default = [];
 +      default = [ ];
        description = "List of modules that are always loaded by the initrd.";
-     };
- 
-@@ -171,7 +171,7 @@ in {
-     system.modulesTree = mkOption {
-       type = types.listOf types.path;
+@@ -173,3 +173,3 @@ in {
        internal = true;
 -      default = [];
 +      default = [ ];
        description = ''
-         Tree of kernel modules.  This includes the kernel, plus modules
-         built outside of the kernel.  Combine these into a single tree of
-@@ -182,7 +182,7 @@ in {
-     };
- 
+@@ -184,3 +184,3 @@ in {
      system.requiredKernelConfig = mkOption {
 -      default = [];
 +      default = [ ];
        example = literalExpression ''
-         with config.lib.kernelConfig; [
-           (isYes "MODULES")
-@@ -198,164 +198,161 @@ in {
-         lib.kernelConfig functions to build list elements.
-       '';
-     };
-+
-   };
- 
-   ###### implementation
+@@ -204,57 +205,57 @@ in {
  
 -  config =
 -    mkMerge
@@ -259,7 +209,7 @@ index ae087c2..fa81fe0 100644
 +      boot.initrd.kernelModules =
 +        optionals config.boot.initrd.includeDefaultModules [
            # For LVM.
-           "dm_mod"
+@@ -262,100 +263,96 @@ in {
          ];
 -      })
 +    })

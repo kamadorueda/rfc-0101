@@ -1,12 +1,27 @@
-diff --git a/monsters/no-newlines/after-nixpkgs-fmt.nix b/monsters/no-newlines/after-nixfmt.nix
-index 66cce27..daf77bf 100644
+diff --git a/monsters/no-newlines/after-nixpkgs-fmt.nix b/monsters/no-newlines/after-alejandra.nix
+index 66cce27..25ff805 100644
 --- a/monsters/no-newlines/after-nixpkgs-fmt.nix
-+++ b/monsters/no-newlines/after-nixfmt.nix
-@@ -1,8 +1,22 @@
++++ b/monsters/no-newlines/after-alejandra.nix
+@@ -1,6 +1,35 @@
 -{ stdenv, lib, fetchFromGitLab, cairo, desktop-file-utils, gettext, glib, gtk4, libadwaita, meson, ninja, pango, pkg-config, python3, rustPlatform, wrapGAppsHook4 }: stdenv.mkDerivation rec {
-+{ stdenv, lib, fetchFromGitLab, cairo, desktop-file-utils, gettext, glib, gtk4
-+, libadwaita, meson, ninja, pango, pkg-config, python3, rustPlatform
-+, wrapGAppsHook4 }:
++{
++  stdenv,
++  lib,
++  fetchFromGitLab,
++  cairo,
++  desktop-file-utils,
++  gettext,
++  glib,
++  gtk4,
++  libadwaita,
++  meson,
++  ninja,
++  pango,
++  pkg-config,
++  python3,
++  rustPlatform,
++  wrapGAppsHook4,
++}:
 +stdenv.mkDerivation rec {
    pname = "contrast";
    version = "0.0.5";
@@ -26,19 +41,19 @@ index 66cce27..daf77bf 100644
 +    hash = "sha256-W4FyqwJpimf0isQRCq9TegpTQPQfsumx40AFQCFG5VQ=";
 +  };
    nativeBuildInputs = [
-     desktop-file-utils
-     gettext
-@@ -23,5 +37,12 @@
-     substituteInPlace build-aux/meson_post_install.py \
-       --replace "gtk-update-icon-cache" "gtk4-update-icon-cache"
+@@ -18,3 +47,3 @@
+   ];
+-  buildInputs = [ cairo glib gtk4 libadwaita pango ];
++  buildInputs = [cairo glib gtk4 libadwaita pango];
+   postPatch = ''
+@@ -25,3 +54,9 @@
    '';
 -  meta = with lib; { description = "Checks whether the contrast between two colors meet the WCAG requirements"; homepage = "https://gitlab.gnome.org/World/design/contrast"; license = licenses.gpl3Plus; maintainers = with maintainers; [ jtojnar ]; platforms = platforms.unix; };
 +  meta = with lib; {
-+    description =
-+      "Checks whether the contrast between two colors meet the WCAG requirements";
++    description = "Checks whether the contrast between two colors meet the WCAG requirements";
 +    homepage = "https://gitlab.gnome.org/World/design/contrast";
 +    license = licenses.gpl3Plus;
-+    maintainers = with maintainers; [ jtojnar ];
++    maintainers = with maintainers; [jtojnar];
 +    platforms = platforms.unix;
 +  };
  }

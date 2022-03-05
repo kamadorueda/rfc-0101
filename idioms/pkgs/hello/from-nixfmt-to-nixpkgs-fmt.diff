@@ -2,7 +2,7 @@ diff --git a/idioms/pkgs/hello/after-nixfmt.nix b/idioms/pkgs/hello/after-nixpkg
 index e72b643..ce49cfd 100644
 --- a/idioms/pkgs/hello/after-nixfmt.nix
 +++ b/idioms/pkgs/hello/after-nixpkgs-fmt.nix
-@@ -1,4 +1,11 @@
+@@ -1,2 +1,9 @@
 -{ lib, stdenv, fetchurl, nixos, testVersion, testEqualDerivation, hello }:
 +{ lib
 +, stdenv
@@ -13,11 +13,7 @@ index e72b643..ce49cfd 100644
 +, hello
 +}:
  
- stdenv.mkDerivation rec {
-   pname = "hello";
-@@ -14,9 +21,11 @@ stdenv.mkDerivation rec {
-   passthru.tests = {
-     version = testVersion { package = hello; };
+@@ -16,5 +23,7 @@ stdenv.mkDerivation rec {
  
 -    invariant-under-noXlibs = testEqualDerivation
 -      "hello must not be rebuilt when environment.noXlibs is set." hello
@@ -28,15 +24,9 @@ index e72b643..ce49cfd 100644
 +        hello
 +        (nixos { environment.noXlibs = true; }).pkgs.hello;
    };
- 
-   meta = with lib; {
-@@ -26,8 +35,7 @@ stdenv.mkDerivation rec {
-       It is fully customizable.
-     '';
+@@ -28,4 +37,3 @@ stdenv.mkDerivation rec {
      homepage = "https://www.gnu.org/software/hello/manual/";
 -    changelog =
 -      "https://git.savannah.gnu.org/cgit/hello.git/plain/NEWS?h=v${version}";
 +    changelog = "https://git.savannah.gnu.org/cgit/hello.git/plain/NEWS?h=v${version}";
      license = licenses.gpl3Plus;
-     maintainers = [ maintainers.eelco ];
-     platforms = platforms.all;

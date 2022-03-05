@@ -69,17 +69,18 @@
 
           dirname=$(realpath --relative-to=$out $(dirname $file))
           mkdir -p $dirname
+          diff='git diff --ignore-blank-lines --ignore-space-at-eol --minimal --no-index --unified=1'
 
           for fmt in alejandra nixfmt nixpkgs-fmt; do
             ($fmt < $file 2>/dev/null || echo error) \
               > $dirname/after-$fmt.nix
-            (git diff --no-index $dirname/before.nix $dirname/after-$fmt.nix || true) \
+            ($diff $dirname/before.nix $dirname/after-$fmt.nix || true) \
               > $dirname/diff-$fmt.diff
 
             for fmt2 in alejandra nixfmt nixpkgs-fmt; do
               if test $fmt != $fmt2; then
-                (git diff --no-index $dirname/after-$fmt.nix $dirname/after-$fmt2.nix || true) \
-                  > $dirname/vs-$fmt-$fmt2.diff
+                ($diff $dirname/after-$fmt.nix $dirname/after-$fmt2.nix || true) \
+                  > $dirname/from-$fmt-to-$fmt2.diff
               fi
             done
           done

@@ -2,9 +2,7 @@ diff --git a/idioms/nixos/kernel/before.nix b/idioms/nixos/kernel/after-nixfmt.n
 index d147155..fa81fe0 100644
 --- a/idioms/nixos/kernel/before.nix
 +++ b/idioms/nixos/kernel/after-nixfmt.nix
-@@ -8,21 +8,18 @@ let
-   inherit (config.boot.kernel) features randstructSeed;
-   inherit (config.boot.kernelPackages) kernel;
+@@ -10,10 +10,7 @@ let
  
 -  kernelModulesConf = pkgs.writeText "nixos.conf"
 -    ''
@@ -19,19 +17,12 @@ index d147155..fa81fe0 100644
 -{
 +in {
  
-   ###### interface
- 
-   options = {
- 
+@@ -24,3 +21,3 @@ in
      boot.kernel.features = mkOption {
 -      default = {};
 +      default = { };
        example = literalExpression "{ debug = true; }";
-       internal = true;
-       description = ''
-@@ -37,13 +34,15 @@ in
-     boot.kernelPackages = mkOption {
-       default = pkgs.linuxPackages;
+@@ -39,9 +36,11 @@ in
        type = types.unspecified // { merge = mergeEqualOption; };
 -      apply = kernelPackages: kernelPackages.extend (self: super: {
 -        kernel = super.kernel.override (originalArgs: {
@@ -49,76 +40,42 @@ index d147155..fa81fe0 100644
          });
 -      });
        # We don't want to evaluate all of linuxPackages for the manual
-       # - some of it might not even evaluate correctly.
-       defaultText = literalExpression "pkgs.linuxPackages";
-@@ -64,7 +63,7 @@ in
- 
-     boot.kernelPatches = mkOption {
+@@ -66,3 +65,3 @@ in
        type = types.listOf types.attrs;
 -      default = [];
 +      default = [ ];
        example = literalExpression "[ pkgs.kernelPatches.ubuntu_fan_4_4 ]";
-       description = "A list of additional patches to apply to the kernel.";
-     };
-@@ -115,14 +114,14 @@ in
- 
-     boot.extraModulePackages = mkOption {
+@@ -117,3 +116,3 @@ in
        type = types.listOf types.package;
 -      default = [];
 +      default = [ ];
        example = literalExpression "[ config.boot.kernelPackages.nvidia_x11 ]";
-       description = "A list of additional packages supplying kernel modules.";
-     };
- 
-     boot.kernelModules = mkOption {
+@@ -124,3 +123,3 @@ in
        type = types.listOf types.str;
 -      default = [];
 +      default = [ ];
        description = ''
-         The set of kernel modules to be loaded in the second stage of
-         the boot process.  Note that modules that are needed to
-@@ -134,7 +133,7 @@ in
- 
-     boot.initrd.availableKernelModules = mkOption {
+@@ -136,3 +135,3 @@ in
        type = types.listOf types.str;
 -      default = [];
 +      default = [ ];
        example = [ "sata_nv" "ext3" ];
-       description = ''
-         The set of kernel modules in the initial ramdisk used during the
-@@ -155,7 +154,7 @@ in
- 
-     boot.initrd.kernelModules = mkOption {
+@@ -157,3 +156,3 @@ in
        type = types.listOf types.str;
 -      default = [];
 +      default = [ ];
        description = "List of modules that are always loaded by the initrd.";
-     };
- 
-@@ -172,7 +171,7 @@ in
-     system.modulesTree = mkOption {
-       type = types.listOf types.path;
+@@ -174,3 +173,3 @@ in
        internal = true;
 -      default = [];
 +      default = [ ];
        description = ''
-         Tree of kernel modules.  This includes the kernel, plus modules
-         built outside of the kernel.  Combine these into a single tree of
-@@ -183,7 +182,7 @@ in
-     };
- 
+@@ -185,3 +184,3 @@ in
      system.requiredKernelConfig = mkOption {
 -      default = [];
 +      default = [ ];
        example = literalExpression ''
-         with config.lib.kernelConfig; [
-           (isYes "MODULES")
-@@ -202,149 +201,158 @@ in
- 
-   };
- 
--
-   ###### implementation
+@@ -207,143 +205,153 @@ in
  
 -  config = mkMerge
 -    [ (mkIf config.boot.initrd.enable {
@@ -408,4 +365,3 @@ index d147155..fa81fe0 100644
 +
 +  ];
  
- }

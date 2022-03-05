@@ -2,7 +2,7 @@ diff --git a/idioms/lib/trivial/after-nixfmt.nix b/idioms/lib/trivial/after-alej
 index 50127d5..66bae6f 100644
 --- a/idioms/lib/trivial/after-nixfmt.nix
 +++ b/idioms/lib/trivial/after-alejandra.nix
-@@ -1,68 +1,67 @@
+@@ -1,27 +1,25 @@
 -{ lib }:
 -
 -rec {
@@ -12,52 +12,50 @@ index 50127d5..66bae6f 100644
  
 -  /* The identity function
 -     For when you need a function that does “nothing”.
--
--     Type: id :: a -> a
--  */
 +  /*
 +   The identity function
 +   For when you need a function that does “nothing”.
-+   
+    
+-     Type: id :: a -> a
+-  */
 +   Type: id :: a -> a
 +   */
    id =
      # The value to return
 -    x:
 -    x;
--
++    x: x;
+ 
 -  /* The constant function
--
++  /*
++   The constant function
+    
 -     Ignores the second argument. If called with only one argument,
 -     constructs a function that always returns a static value.
--
++   Ignores the second argument. If called with only one argument,
++   constructs a function that always returns a static value.
+    
 -     Type: const :: a -> b -> a
 -     Example:
 -       let f = const 5; in f 10
 -       => 5
 -  */
-+    x: x;
-+
-+  /*
-+   The constant function
-+   
-+   Ignores the second argument. If called with only one argument,
-+   constructs a function that always returns a static value.
-+   
 +   Type: const :: a -> b -> a
 +   Example:
 +     let f = const 5; in f 10
 +     => 5
 +   */
    const =
-     # Value to return
-     x:
+@@ -30,37 +28,38 @@ rec {
      # Value to ignore
 -    y:
 -    x;
--
++    y: x;
+ 
 -  /* Pipes a value through a list of functions, left to right.
--
++  /*
++   Pipes a value through a list of functions, left to right.
+    
 -     Type: pipe :: a -> [<functions>] -> <return type of last function>
 -     Example:
 -       pipe 2 [
@@ -65,34 +63,6 @@ index 50127d5..66bae6f 100644
 -         (x: x * 2)  # 4 * 2 = 8
 -       ]
 -       => 8
--
--       # ideal to do text transformations
--       pipe [ "a/b" "a/c" ] [
--
--         # create the cp command
--         (map (file: ''cp "${src}/${file}" $out\n''))
--
--         # concatenate all commands into one string
--         lib.concatStrings
--
--         # make that string into a nix derivation
--         (pkgs.runCommand "copy-to-out" {})
--
--       ]
--       => <drv which copies all files to $out>
--
--     The output type of each function has to be the input type
--     of the next function, and the last function returns the
--     final value.
--  */
--  pipe = val: functions:
--    let reverseApply = x: f: f x;
--    in builtins.foldl' reverseApply val functions;
-+    y: x;
-+
-+  /*
-+   Pipes a value through a list of functions, left to right.
-+   
 +   Type: pipe :: a -> [<functions>] -> <return type of last function>
 +   Example:
 +     pipe 2 [
@@ -100,22 +70,39 @@ index 50127d5..66bae6f 100644
 +       (x: x * 2)  # 4 * 2 = 8
 +     ]
 +     => 8
-+   
+    
+-       # ideal to do text transformations
+-       pipe [ "a/b" "a/c" ] [
 +     # ideal to do text transformations
 +     pipe [ "a/b" "a/c" ] [
-+   
+    
+-         # create the cp command
+-         (map (file: ''cp "${src}/${file}" $out\n''))
 +       # create the cp command
 +       (map (file: ''cp "${src}/${file}" $out\n''))
-+   
+    
+-         # concatenate all commands into one string
+-         lib.concatStrings
 +       # concatenate all commands into one string
 +       lib.concatStrings
-+   
+    
+-         # make that string into a nix derivation
+-         (pkgs.runCommand "copy-to-out" {})
 +       # make that string into a nix derivation
 +       (pkgs.runCommand "copy-to-out" {})
-+   
+    
+-       ]
+-       => <drv which copies all files to $out>
 +     ]
 +     => <drv which copies all files to $out>
-+   
+    
+-     The output type of each function has to be the input type
+-     of the next function, and the last function returns the
+-     final value.
+-  */
+-  pipe = val: functions:
+-    let reverseApply = x: f: f x;
+-    in builtins.foldl' reverseApply val functions;
 +   The output type of each function has to be the input type
 +   of the next function, and the last function returns the
 +   final value.
@@ -125,25 +112,19 @@ index 50127d5..66bae6f 100644
 +  in
 +    builtins.foldl' reverseApply val functions;
  
-   # note please don’t add a function like `compose = flip pipe`.
-   # This would confuse users, because the order of the functions
-@@ -71,188 +70,261 @@ rec {
- 
-   ## Named versions corresponding to some builtin operators.
+@@ -73,51 +72,84 @@ rec {
  
 -  /* Concatenate two lists
--
++  /*
++   Concatenate two lists
+    
 -     Type: concat :: [a] -> [a] -> [a]
--
++   Type: concat :: [a] -> [a] -> [a]
+    
 -     Example:
 -       concat [ 1 2 ] [ 3 4 ]
 -       => [ 1 2 3 4 ]
 -  */
-+  /*
-+   Concatenate two lists
-+   
-+   Type: concat :: [a] -> [a] -> [a]
-+   
 +   Example:
 +     concat [ 1 2 ] [ 3 4 ]
 +     => [ 1 2 3 4 ]
@@ -214,68 +195,59 @@ index 50127d5..66bae6f 100644
    bitNot = builtins.sub (-1);
  
 -  /* Convert a boolean to a string.
--
++  /*
++   Convert a boolean to a string.
+    
 -     This function uses the strings "true" and "false" to represent
 -     boolean values. Calling `toString` on a bool instead returns "1"
 -     and "" (sic!).
--
--     Type: boolToString :: bool -> string
--  */
--  boolToString = b: if b then "true" else "false";
--
--  /* Merge two attribute sets shallowly, right side trumps left
--
--     mergeAttrs :: attrs -> attrs -> attrs
--
--     Example:
--       mergeAttrs { a = 1; b = 2; } { b = 3; c = 4; }
--       => { a = 1; b = 3; c = 4; }
--  */
-+  /*
-+   Convert a boolean to a string.
-+   
 +   This function uses the strings "true" and "false" to represent
 +   boolean values. Calling `toString` on a bool instead returns "1"
 +   and "" (sic!).
-+   
+    
+-     Type: boolToString :: bool -> string
+-  */
+-  boolToString = b: if b then "true" else "false";
 +   Type: boolToString :: bool -> string
 +   */
 +  boolToString = b:
 +    if b
 +    then "true"
 +    else "false";
-+
+ 
+-  /* Merge two attribute sets shallowly, right side trumps left
 +  /*
 +   Merge two attribute sets shallowly, right side trumps left
-+   
+    
+-     mergeAttrs :: attrs -> attrs -> attrs
 +   mergeAttrs :: attrs -> attrs -> attrs
-+   
+    
+-     Example:
+-       mergeAttrs { a = 1; b = 2; } { b = 3; c = 4; }
+-       => { a = 1; b = 3; c = 4; }
+-  */
 +   Example:
 +     mergeAttrs { a = 1; b = 2; } { b = 3; c = 4; }
 +     => { a = 1; b = 3; c = 4; }
 +   */
    mergeAttrs =
-     # Left attribute set
-     x:
+@@ -126,23 +158,24 @@ rec {
      # Right attribute set (higher precedence for equal keys)
 -    y:
 -    x // y;
--
++    y: x // y;
+ 
 -  /* Flip the order of the arguments of a binary function.
--
++  /*
++   Flip the order of the arguments of a binary function.
+    
 -     Type: flip :: (a -> b -> c) -> (b -> a -> c)
--
++   Type: flip :: (a -> b -> c) -> (b -> a -> c)
+    
 -     Example:
 -       flip concat [1] [2]
 -       => [ 2 1 ]
 -  */
-+    y: x // y;
-+
-+  /*
-+   Flip the order of the arguments of a binary function.
-+   
-+   Type: flip :: (a -> b -> c) -> (b -> a -> c)
-+   
 +   Example:
 +     flip concat [1] [2]
 +     => [ 2 1 ]
@@ -283,16 +255,15 @@ index 50127d5..66bae6f 100644
    flip = f: a: b: f b a;
  
 -  /* Apply function if the supplied argument is non-null.
--
++  /*
++   Apply function if the supplied argument is non-null.
+    
 -     Example:
 -       mapNullable (x: x+1) null
 -       => null
 -       mapNullable (x: x+1) 22
 -       => 23
 -  */
-+  /*
-+   Apply function if the supplied argument is non-null.
-+   
 +   Example:
 +     mapNullable (x: x+1) null
 +     => null
@@ -300,9 +271,7 @@ index 50127d5..66bae6f 100644
 +     => 23
 +   */
    mapNullable =
-     # Function to call
-     f:
-     # Argument to check for null before passing it to `f`
+@@ -152,8 +185,21 @@ rec {
      a:
 -    if a == null then a else f a;
 +      if a == null
@@ -328,7 +297,7 @@ index 50127d5..66bae6f 100644
 +    genericClosure
 +    ;
  
-   ## nixpkgs version strings
+@@ -161,48 +207,56 @@ rec {
  
 -  # Returns the current full nixpkgs version number.
 +  /*
@@ -343,13 +312,12 @@ index 50127d5..66bae6f 100644
    release = lib.strings.fileContents ../.version;
  
 -  /* Returns the current nixpkgs release code name.
--
++  /*
++   Returns the current nixpkgs release code name.
+    
 -     On each release the first letter is bumped and a new animal is chosen
 -     starting with that new letter.
 -  */
-+  /*
-+   Returns the current nixpkgs release code name.
-+   
 +   On each release the first letter is bumped and a new animal is chosen
 +   starting with that new letter.
 +   */
@@ -396,33 +364,29 @@ index 50127d5..66bae6f 100644
 -      lib.fileContents revisionFile
 -    else
 -      default;
--
--  nixpkgsVersion = builtins.trace
--    "`lib.nixpkgsVersion` is deprecated, use `lib.version` instead!" version;
--
--  /* Determine whether the function is being called from inside a Nix
--     shell.
--
--     Type: inNixShell :: bool
--  */
 +    in
 +      if lib.pathIsGitRepo gitRepo
 +      then lib.commitIdFromGitRepo gitRepo
 +      else if lib.pathExists revisionFile
 +      then lib.fileContents revisionFile
 +      else default;
-+
+ 
+-  nixpkgsVersion = builtins.trace
+-    "`lib.nixpkgsVersion` is deprecated, use `lib.version` instead!" version;
 +  nixpkgsVersion = builtins.trace "`lib.nixpkgsVersion` is deprecated, use `lib.version` instead!" version;
-+
+ 
+-  /* Determine whether the function is being called from inside a Nix
+-     shell.
 +  /*
 +   Determine whether the function is being called from inside a Nix
 +   shell.
-+   
+    
+-     Type: inNixShell :: bool
+-  */
 +   Type: inNixShell :: bool
 +   */
    inNixShell = builtins.getEnv "IN_NIX_SHELL" != "";
- 
-   ## Integer operations
+@@ -211,16 +265,27 @@ rec {
  
 -  # Return minimum of two numbers.
 -  min = x: y: if x < y then x else y;
@@ -464,8 +428,7 @@ index 50127d5..66bae6f 100644
 +     => 1
 +   */
    mod = base: int: base - (int * (builtins.div base int));
- 
-   ## Comparisons
+@@ -229,28 +294,35 @@ rec {
  
 -  /* C-style comparisons
 -
@@ -527,11 +490,7 @@ index 50127d5..66bae6f 100644
 +     compare "fooa" "a" => 1
 +   */
    splitByAndCompare =
-     # Predicate
-     p:
-@@ -264,19 +336,30 @@ rec {
-     a:
-     # Second value to compare
+@@ -266,15 +338,26 @@ rec {
      b:
 -    if p a then if p b then yes a b else -1 else if p b then 1 else no a b;
 -
@@ -571,29 +530,23 @@ index 50127d5..66bae6f 100644
 +  importTOML = path:
 +    builtins.fromTOML (builtins.readFile path);
  
-   ## Warnings
- 
-@@ -293,66 +376,72 @@ rec {
-   # TODO: figure out a clever way to integrate location information from
-   # something like __unsafeGetAttrPos.
+@@ -295,62 +378,68 @@ rec {
  
 -  /* Print a warning before returning the second argument. This function behaves
 -     like `builtins.trace`, but requires a string message and formats it as a
 -     warning, including the `warning: ` prefix.
--
--     To get a call stack trace and abort evaluation, set the environment variable
--     `NIX_ABORT_ON_WARN=true` and set the Nix options `--option pure-eval false --show-trace`
--
--     Type: string -> a -> a
--  */
 +  /*
 +   Print a warning before returning the second argument. This function behaves
 +   like `builtins.trace`, but requires a string message and formats it as a
 +   warning, including the `warning: ` prefix.
-+   
+    
+-     To get a call stack trace and abort evaluation, set the environment variable
+-     `NIX_ABORT_ON_WARN=true` and set the Nix options `--option pure-eval false --show-trace`
 +   To get a call stack trace and abort evaluation, set the environment variable
 +   `NIX_ABORT_ON_WARN=true` and set the Nix options `--option pure-eval false --show-trace`
-+   
+    
+-     Type: string -> a -> a
+-  */
 +   Type: string -> a -> a
 +   */
    warn =
@@ -603,41 +556,77 @@ index 50127d5..66bae6f 100644
 -        "NIX_ABORT_ON_WARN=true; warnings are treated as unrecoverable errors.")
 -    else
 -      msg: builtins.trace "[1;31mwarning: ${msg}[0m";
--
++    if lib.elem (builtins.getEnv "NIX_ABORT_ON_WARN") ["1" "true" "yes"]
++    then msg: builtins.trace "[1;31mwarning: ${msg}[0m" (abort "NIX_ABORT_ON_WARN=true; warnings are treated as unrecoverable errors.")
++    else msg: builtins.trace "[1;31mwarning: ${msg}[0m";
++
++  /*
++   Like warn, but only warn when the first argument is `true`.
+    
 -  /* Like warn, but only warn when the first argument is `true`.
--
++   Type: bool -> string -> a -> a
++   */
++  warnIf = cond: msg:
++    if cond
++    then warn msg
++    else id;
+ 
 -     Type: bool -> string -> a -> a
 -  */
 -  warnIf = cond: msg: if cond then warn msg else id;
--
++  /*
++   Like the `assert b; e` expression, but with a custom error message and
++   without the semicolon.
+    
 -  /* Like the `assert b; e` expression, but with a custom error message and
 -     without the semicolon.
--
++   If true, return the identity function, `r: r`.
+    
 -     If true, return the identity function, `r: r`.
--
++   If false, throw the error message.
+    
 -     If false, throw the error message.
--
++   Calls can be juxtaposed using function application, as `(r: r) a = a`, so
++   `(r: r) (r: r) a = a`, and so forth.
+    
 -     Calls can be juxtaposed using function application, as `(r: r) a = a`, so
 -     `(r: r) (r: r) a = a`, and so forth.
--
++   Type: bool -> string -> a -> a
+    
 -     Type: bool -> string -> a -> a
--
++   Example:
+    
 -     Example:
--
++       throwIfNot (lib.isList overlays) "The overlays argument to nixpkgs must be a list."
++       lib.foldr (x: throwIfNot (lib.isFunction x) "All overlays passed to nixpkgs must be functions.") (r: r) overlays
++       pkgs
+    
 -         throwIfNot (lib.isList overlays) "The overlays argument to nixpkgs must be a list."
 -         lib.foldr (x: throwIfNot (lib.isFunction x) "All overlays passed to nixpkgs must be functions.") (r: r) overlays
 -         pkgs
 -  */
 -  throwIfNot = cond: msg: if cond then x: x else throw msg;
--
++   */
++  throwIfNot = cond: msg:
++    if cond
++    then x: x
++    else throw msg;
+ 
 -  /* Check if the elements in a list are valid values from a enum, returning the identity function, or throwing an error message otherwise.
--
++  /*
++   Check if the elements in a list are valid values from a enum, returning the identity function, or throwing an error message otherwise.
+    
 -     Example:
 -       let colorVariants = ["bright" "dark" "black"]
 -       in checkListOfEnum "color variants" [ "standard" "light" "dark" ] colorVariants;
 -       =>
 -       error: color variants: bright, black unexpected; valid ones: standard, light, dark
--
++   Example:
++     let colorVariants = ["bright" "dark" "black"]
++     in checkListOfEnum "color variants" [ "standard" "light" "dark" ] colorVariants;
++     =>
++     error: color variants: bright, black unexpected; valid ones: standard, light, dark
+    
 -     Type: String -> List ComparableVal -> List ComparableVal -> a -> a
 -  */
 -  checkListOfEnum = msg: valid: given:
@@ -647,54 +636,6 @@ index 50127d5..66bae6f 100644
 -    } unexpected; valid ones: ${
 -      builtins.concatStringsSep ", " (builtins.map builtins.toString valid)
 -    }";
-+    if lib.elem (builtins.getEnv "NIX_ABORT_ON_WARN") ["1" "true" "yes"]
-+    then msg: builtins.trace "[1;31mwarning: ${msg}[0m" (abort "NIX_ABORT_ON_WARN=true; warnings are treated as unrecoverable errors.")
-+    else msg: builtins.trace "[1;31mwarning: ${msg}[0m";
-+
-+  /*
-+   Like warn, but only warn when the first argument is `true`.
-+   
-+   Type: bool -> string -> a -> a
-+   */
-+  warnIf = cond: msg:
-+    if cond
-+    then warn msg
-+    else id;
-+
-+  /*
-+   Like the `assert b; e` expression, but with a custom error message and
-+   without the semicolon.
-+   
-+   If true, return the identity function, `r: r`.
-+   
-+   If false, throw the error message.
-+   
-+   Calls can be juxtaposed using function application, as `(r: r) a = a`, so
-+   `(r: r) (r: r) a = a`, and so forth.
-+   
-+   Type: bool -> string -> a -> a
-+   
-+   Example:
-+   
-+       throwIfNot (lib.isList overlays) "The overlays argument to nixpkgs must be a list."
-+       lib.foldr (x: throwIfNot (lib.isFunction x) "All overlays passed to nixpkgs must be functions.") (r: r) overlays
-+       pkgs
-+   
-+   */
-+  throwIfNot = cond: msg:
-+    if cond
-+    then x: x
-+    else throw msg;
-+
-+  /*
-+   Check if the elements in a list are valid values from a enum, returning the identity function, or throwing an error message otherwise.
-+   
-+   Example:
-+     let colorVariants = ["bright" "dark" "black"]
-+     in checkListOfEnum "color variants" [ "standard" "light" "dark" ] colorVariants;
-+     =>
-+     error: color variants: bright, black unexpected; valid ones: standard, light, dark
-+   
 +   Type: String -> List ComparableVal -> List ComparableVal -> a -> a
 +   */
 +  checkListOfEnum = msg: valid: given: let
@@ -703,11 +644,7 @@ index 50127d5..66bae6f 100644
 +    lib.throwIfNot (unexpected == [])
 +    "${msg}: ${builtins.concatStringsSep ", " (builtins.map builtins.toString unexpected)} unexpected; valid ones: ${builtins.concatStringsSep ", " (builtins.map builtins.toString valid)}";
  
-   info = msg: builtins.trace "INFO: ${msg}";
- 
-@@ -360,83 +449,91 @@ rec {
- 
-   ## Function annotations
+@@ -362,81 +451,89 @@ rec {
  
 -  /* Add metadata about expected function arguments to a function.
 -     The metadata should match the format given by

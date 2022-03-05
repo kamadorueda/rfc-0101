@@ -2,7 +2,7 @@ diff --git a/idioms/nixos/kernel/after-alejandra.nix b/idioms/nixos/kernel/after
 index ae087c2..440dd75 100644
 --- a/idioms/nixos/kernel/after-alejandra.nix
 +++ b/idioms/nixos/kernel/after-nixpkgs-fmt.nix
-@@ -1,25 +1,28 @@
+@@ -1,8 +1,7 @@
 -{
 -  config,
 -  lib,
@@ -17,14 +17,13 @@ index ae087c2..440dd75 100644
 +let
 +
    inherit (config.boot) kernelPatches;
-   inherit (config.boot.kernel) features randstructSeed;
-   inherit (config.boot.kernelPackages) kernel;
+@@ -11,4 +10,3 @@ with lib; let
  
 -  kernelModulesConf =
 -    pkgs.writeText "nixos.conf"
 +  kernelModulesConf = pkgs.writeText "nixos.conf"
      ''
-       ${concatStringsSep "\n" config.boot.kernelModules}
+@@ -16,3 +14,7 @@ with lib; let
      '';
 -in {
 +
@@ -33,18 +32,12 @@ index ae087c2..440dd75 100644
 +{
 +
    ###### interface
- 
-   options = {
-+
+@@ -21,3 +24,3 @@ in {
      boot.kernel.features = mkOption {
 -      default = {};
 +      default = { };
        example = literalExpression "{ debug = true; }";
-       internal = true;
-       description = ''
-@@ -33,15 +36,14 @@ in {
- 
-     boot.kernelPackages = mkOption {
+@@ -35,11 +38,10 @@ in {
        default = pkgs.linuxPackages;
 -      type = types.unspecified // {merge = mergeEqualOption;};
 -      apply = kernelPackages:
@@ -63,20 +56,12 @@ index ae087c2..440dd75 100644
          });
 +      });
        # We don't want to evaluate all of linuxPackages for the manual
-       # - some of it might not even evaluate correctly.
-       defaultText = literalExpression "pkgs.linuxPackages";
-@@ -62,7 +64,7 @@ in {
- 
-     boot.kernelPatches = mkOption {
+@@ -64,3 +66,3 @@ in {
        type = types.listOf types.attrs;
 -      default = [];
 +      default = [ ];
        example = literalExpression "[ pkgs.kernelPatches.ubuntu_fan_4_4 ]";
-       description = "A list of additional patches to apply to the kernel.";
-     };
-@@ -81,12 +83,11 @@ in {
-     };
- 
+@@ -83,8 +85,7 @@ in {
      boot.kernelParams = mkOption {
 -      type = types.listOf (types.strMatching ''([^"[:space:]]|"[^"]*")+''
 -        // {
@@ -90,72 +75,39 @@ index ae087c2..440dd75 100644
 +      });
 +      default = [ ];
        description = "Parameters added to the kernel command line.";
-     };
- 
-@@ -114,14 +115,14 @@ in {
- 
-     boot.extraModulePackages = mkOption {
+@@ -116,3 +117,3 @@ in {
        type = types.listOf types.package;
 -      default = [];
 +      default = [ ];
        example = literalExpression "[ config.boot.kernelPackages.nvidia_x11 ]";
-       description = "A list of additional packages supplying kernel modules.";
-     };
- 
-     boot.kernelModules = mkOption {
+@@ -123,3 +124,3 @@ in {
        type = types.listOf types.str;
 -      default = [];
 +      default = [ ];
        description = ''
-         The set of kernel modules to be loaded in the second stage of
-         the boot process.  Note that modules that are needed to
-@@ -133,8 +134,8 @@ in {
- 
-     boot.initrd.availableKernelModules = mkOption {
+@@ -135,4 +136,4 @@ in {
        type = types.listOf types.str;
 -      default = [];
 -      example = ["sata_nv" "ext3"];
 +      default = [ ];
 +      example = [ "sata_nv" "ext3" ];
        description = ''
-         The set of kernel modules in the initial ramdisk used during the
-         boot process.  This set must include all modules necessary for
-@@ -154,7 +155,7 @@ in {
- 
-     boot.initrd.kernelModules = mkOption {
+@@ -156,3 +157,3 @@ in {
        type = types.listOf types.str;
 -      default = [];
 +      default = [ ];
        description = "List of modules that are always loaded by the initrd.";
-     };
- 
-@@ -171,7 +172,7 @@ in {
-     system.modulesTree = mkOption {
-       type = types.listOf types.path;
+@@ -173,3 +174,3 @@ in {
        internal = true;
 -      default = [];
 +      default = [ ];
        description = ''
-         Tree of kernel modules.  This includes the kernel, plus modules
-         built outside of the kernel.  Combine these into a single tree of
-@@ -182,7 +183,7 @@ in {
-     };
- 
+@@ -184,3 +185,3 @@ in {
      system.requiredKernelConfig = mkOption {
 -      default = [];
 +      default = [ ];
        example = literalExpression ''
-         with config.lib.kernelConfig; [
-           (isYes "MODULES")
-@@ -198,15 +199,17 @@ in {
-         lib.kernelConfig functions to build list elements.
-       '';
-     };
-+
-   };
- 
-+
-   ###### implementation
+@@ -204,7 +207,7 @@ in {
  
 -  config =
 -    mkMerge
@@ -166,22 +118,14 @@ index ae087c2..440dd75 100644
 +        boot.initrd.availableKernelModules =
 +          optionals config.boot.initrd.includeDefaultModules ([
              # Note: most of these (especially the SATA/PATA modules)
-             # shouldn't be included by default since nixos-generate-config
-             # detects them, but I'm keeping them for now for backwards
-@@ -245,8 +248,8 @@ in {
-             "hid_logitech_hidpp"
-             "hid_logitech_dj"
+@@ -247,4 +250,4 @@ in {
              "hid_microsoft"
 -          ]
 -          ++ optionals pkgs.stdenv.hostPlatform.isx86 [
 +
 +          ] ++ optionals pkgs.stdenv.hostPlatform.isx86 [
              # Misc. x86 keyboard stuff.
-             "pcips2"
-             "atkbd"
-@@ -256,47 +259,51 @@ in {
-             "rtc_cmos"
-           ]);
+@@ -258,6 +261,7 @@ in {
  
 -        boot.initrd.kernelModules = optionals config.boot.initrd.includeDefaultModules [
 -          # For LVM.
@@ -193,7 +137,7 @@ index ae087c2..440dd75 100644
 +            "dm_mod"
 +          ];
        })
- 
+@@ -265,5 +269,5 @@ in {
        (mkIf (!config.boot.isContainer) {
 -        system.build = {inherit kernel;};
 +        system.build = { inherit kernel; };
@@ -201,15 +145,14 @@ index ae087c2..440dd75 100644
 -        system.modulesTree = [kernel] ++ config.boot.extraModulePackages;
 +        system.modulesTree = [ kernel ] ++ config.boot.extraModulePackages;
  
-         # Implement consoleLogLevel both in early boot and using sysctl
-         # (so you don't need to reboot to have changes take effect).
+@@ -272,4 +276,4 @@ in {
          boot.kernelParams =
 -          ["loglevel=${toString config.boot.consoleLogLevel}"]
 -          ++ optionals config.boot.vesa ["vga=0x317" "nomodeset"];
 +          [ "loglevel=${toString config.boot.consoleLogLevel}" ] ++
 +          optionals config.boot.vesa [ "vga=0x317" "nomodeset" ];
  
-         boot.kernel.sysctl."kernel.printk" = mkDefault config.boot.consoleLogLevel;
+@@ -277,6 +281,6 @@ in {
  
 -        boot.kernelModules = ["loop" "atkbd"];
 +        boot.kernelModules = [ "loop" "atkbd" ];
@@ -218,7 +161,7 @@ index ae087c2..440dd75 100644
 -        hardware.firmware = [kernel];
 +        hardware.firmware = [ kernel ];
  
-         # Create /etc/modules-load.d/nixos.conf, which is read by
+@@ -284,17 +288,20 @@ in {
          # systemd-modules-load.service to load required kernel modules.
 -        environment.etc = {
 -          "modules-load.d/nixos.conf".source = kernelModulesConf;
@@ -252,11 +195,7 @@ index ae087c2..440dd75 100644
            };
 -        };
  
-         lib.kernelConfig = {
-           isYes = option: {
-@@ -339,23 +346,18 @@ in {
-             # !!! Should this really be needed?
-             (isYes "MODULES")
+@@ -341,19 +348,12 @@ in {
              (isYes "BINFMT_ELF")
 -          ]
 -          ++ (optional (randstructSeed != "") (isYes "GCC_PLUGIN_RANDSTRUCT"));
@@ -284,7 +223,3 @@ index ae087c2..440dd75 100644
 +          config.system.requiredKernelConfig;
 +
        })
-+
-     ];
-+
- }
