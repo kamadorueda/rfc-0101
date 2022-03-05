@@ -1,0 +1,52 @@
+diff --git a/monsters/no-newlines/after-alejandra.nix b/monsters/no-newlines/after-nixfmt.nix
+index 25ff805..daf77bf 100644
+--- a/monsters/no-newlines/after-alejandra.nix
++++ b/monsters/no-newlines/after-nixfmt.nix
+@@ -1,21 +1,6 @@
+-{
+-  stdenv,
+-  lib,
+-  fetchFromGitLab,
+-  cairo,
+-  desktop-file-utils,
+-  gettext,
+-  glib,
+-  gtk4,
+-  libadwaita,
+-  meson,
+-  ninja,
+-  pango,
+-  pkg-config,
+-  python3,
+-  rustPlatform,
+-  wrapGAppsHook4,
+-}:
++{ stdenv, lib, fetchFromGitLab, cairo, desktop-file-utils, gettext, glib, gtk4
++, libadwaita, meson, ninja, pango, pkg-config, python3, rustPlatform
++, wrapGAppsHook4 }:
+ stdenv.mkDerivation rec {
+   pname = "contrast";
+   version = "0.0.5";
+@@ -45,7 +30,7 @@ stdenv.mkDerivation rec {
+     wrapGAppsHook4
+     glib # for glib-compile-resources
+   ];
+-  buildInputs = [cairo glib gtk4 libadwaita pango];
++  buildInputs = [ cairo glib gtk4 libadwaita pango ];
+   postPatch = ''
+     patchShebangs build-aux/meson_post_install.py
+     # https://gitlab.gnome.org/World/design/contrast/-/merge_requests/23
+@@ -53,10 +38,11 @@ stdenv.mkDerivation rec {
+       --replace "gtk-update-icon-cache" "gtk4-update-icon-cache"
+   '';
+   meta = with lib; {
+-    description = "Checks whether the contrast between two colors meet the WCAG requirements";
++    description =
++      "Checks whether the contrast between two colors meet the WCAG requirements";
+     homepage = "https://gitlab.gnome.org/World/design/contrast";
+     license = licenses.gpl3Plus;
+-    maintainers = with maintainers; [jtojnar];
++    maintainers = with maintainers; [ jtojnar ];
+     platforms = platforms.unix;
+   };
+ }

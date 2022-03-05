@@ -1,0 +1,12 @@
+diff --git a/discussions/function-signatures/after-alejandra.nix b/discussions/function-signatures/after-nixpkgs-fmt.nix
+index e6f58b2..91ada2b 100644
+--- a/discussions/function-signatures/after-alejandra.nix
++++ b/discussions/function-signatures/after-nixpkgs-fmt.nix
+@@ -1,6 +1 @@
+-{
+-  foo,
+-  bar,
+-  baz,
+-}:
+-foo
++{ foo, bar, baz }: foo
