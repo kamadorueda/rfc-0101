@@ -1,0 +1,11 @@
+diff --git a/discussions/parentheses/after-nixfmt.nix b/discussions/parentheses/after-alejandra.nix
+index 318a28f..d1bbc9f 100644
+--- a/discussions/parentheses/after-nixfmt.nix
++++ b/discussions/parentheses/after-alejandra.nix
+@@ -1 +1,5 @@
+-(x + (x) - (x + ((((x))) * x)) + (x))
++(x
++  + x
++  - (x
++    + (x * x))
++  + x)
