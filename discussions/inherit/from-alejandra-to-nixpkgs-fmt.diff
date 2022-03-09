@@ -1,0 +1,10 @@
+diff --git a/discussions/inherit/after-alejandra.nix b/discussions/inherit/after-nixpkgs-fmt.nix
+index 053f139..e73f155 100644
+--- a/discussions/inherit/after-alejandra.nix
++++ b/discussions/inherit/after-nixpkgs-fmt.nix
+@@ -6,4 +6,3 @@
+     baz
+-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong
+-    ;
++    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong;
+ }

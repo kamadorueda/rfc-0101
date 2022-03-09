@@ -1,0 +1,14 @@
+diff --git a/discussions/inherit/after-nixfmt.nix b/discussions/inherit/after-nixpkgs-fmt.nix
+index 54d79fb..e73f155 100644
+--- a/discussions/inherit/after-nixfmt.nix
++++ b/discussions/inherit/after-nixpkgs-fmt.nix
+@@ -1,4 +1,7 @@
+ {
+-  inherit (foo)
+-    foo bar baz
++  inherit
++    (foo)
++    foo
++    bar
++    baz
+     loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong;

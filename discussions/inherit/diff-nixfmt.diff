@@ -1,0 +1,16 @@
+diff --git a/discussions/inherit/before.nix b/discussions/inherit/after-nixfmt.nix
+index b1e546d..54d79fb 100644
+--- a/discussions/inherit/before.nix
++++ b/discussions/inherit/after-nixfmt.nix
+@@ -1,8 +1,5 @@
+ {
+-  inherit
+-    (   foo   )
+-    foo
+-      bar
+-        baz
+-        loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong;
++  inherit (foo)
++    foo bar baz
++    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong;
+ }

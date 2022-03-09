@@ -1,0 +1,17 @@
+diff --git a/discussions/inherit/before.nix b/discussions/inherit/after-alejandra.nix
+index b1e546d..053f139 100644
+--- a/discussions/inherit/before.nix
++++ b/discussions/inherit/after-alejandra.nix
+@@ -2,7 +2,8 @@
+   inherit
+-    (   foo   )
++    (foo)
+     foo
+-      bar
+-        baz
+-        loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong;
++    bar
++    baz
++    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong
++    ;
+ }
