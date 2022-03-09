@@ -1,0 +1,19 @@
+diff --git a/discussions/string-interpolation/before.nix b/discussions/string-interpolation/after-nixpkgs-fmt.nix
+index 38d81d2..3c3ebd7 100644
+--- a/discussions/string-interpolation/before.nix
++++ b/discussions/string-interpolation/after-nixpkgs-fmt.nix
+@@ -1,7 +1,7 @@
+-    ''
+-      some-command --some-argument ${
+-        if cond
+-        then foo
+-        else bar
+-      }
+-    ''
++''
++  some-command --some-argument ${
++    if cond
++    then foo
++    else bar
++  }
++''
