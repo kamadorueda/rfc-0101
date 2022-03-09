@@ -1,0 +1,18 @@
+diff --git a/monsters/poor-indentation/after-nixpkgs-fmt.nix b/monsters/poor-indentation/after-nixfmt.nix
+index f87c238..09f521f 100644
+--- a/monsters/poor-indentation/after-nixpkgs-fmt.nix
++++ b/monsters/poor-indentation/after-nixfmt.nix
+@@ -5,8 +5,8 @@
+ 
+-                           Type: concat :: [a] -> [a] -> [a]
++       Type: concat :: [a] -> [a] -> [a]
+ 
+-                           Example:
+-                             concat [ 1 2 ] [ 3 4 ]
+-                             => [ 1 2 3 4 ]
+-                        */
++       Example:
++         concat [ 1 2 ] [ 3 4 ]
++         => [ 1 2 3 4 ]
++    */
+     concat = x: y: x ++ y;

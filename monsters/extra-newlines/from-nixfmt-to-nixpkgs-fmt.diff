@@ -1,5 +1,5 @@
 diff --git a/monsters/extra-newlines/after-nixfmt.nix b/monsters/extra-newlines/after-nixpkgs-fmt.nix
-index a63065f..2dadc04 100644
+index a63065f..88eff81 100644
 --- a/monsters/extra-newlines/after-nixfmt.nix
 +++ b/monsters/extra-newlines/after-nixpkgs-fmt.nix
 @@ -1,18 +1,17 @@
@@ -127,7 +127,7 @@ index a63065f..2dadc04 100644
 +              literalExpression
  
 -            literalExpression
-+                "{ debug= true; }";
++                "{debug= true;}";
  
 -            "{debug= true;}";
  

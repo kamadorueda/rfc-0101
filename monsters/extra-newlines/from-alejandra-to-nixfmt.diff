@@ -1,5 +1,5 @@
 diff --git a/monsters/extra-newlines/after-alejandra.nix b/monsters/extra-newlines/after-nixfmt.nix
-index e4178b8..e3e1be9 100644
+index e4178b8..a63065f 100644
 --- a/monsters/extra-newlines/after-alejandra.nix
 +++ b/monsters/extra-newlines/after-nixfmt.nix
 @@ -1,25 +1,43 @@
@@ -143,7 +143,7 @@ index e4178b8..e3e1be9 100644
 +
 +            literalExpression
 +
-+            "{ debug= true; }";
++            "{debug= true;}";
 +
 +          internal
 +

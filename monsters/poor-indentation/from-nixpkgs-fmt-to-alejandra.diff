@@ -1,0 +1,28 @@
+diff --git a/monsters/poor-indentation/after-nixpkgs-fmt.nix b/monsters/poor-indentation/after-alejandra.nix
+index f87c238..9b25f69 100644
+--- a/monsters/poor-indentation/after-nixpkgs-fmt.nix
++++ b/monsters/poor-indentation/after-alejandra.nix
+@@ -2,11 +2,11 @@
+   lib = {
++    /*
++     Concatenate two lists
+      
+-    /* Concatenate two lists
++     Type: concat :: [a] -> [a] -> [a]
+      
+-                           Type: concat :: [a] -> [a] -> [a]
+-
+-                           Example:
+-                             concat [ 1 2 ] [ 3 4 ]
+-                             => [ 1 2 3 4 ]
+-                        */
++     Example:
++       concat [ 1 2 ] [ 3 4 ]
++       => [ 1 2 3 4 ]
++     */
+     concat = x: y: x ++ y;
+@@ -17,3 +16,3 @@
+     boot.kernel.features = mkOption {
+-      default = { };
++      default = {};
+       example = literalExpression "{ debug = true; }";
