@@ -1,0 +1,9 @@
+diff --git a/discussions/if-then-else/before.nix b/discussions/if-then-else/after-nixpkgs-fmt.nix
+index 2bae882..fedca4f 100644
+--- a/discussions/if-then-else/before.nix
++++ b/discussions/if-then-else/after-nixpkgs-fmt.nix
+@@ -9,3 +9,3 @@
+   then if
+-  looooooooooooooooooooooooooooooooooooooooooooooooooooong
++    looooooooooooooooooooooooooooooooooooooooooooooooooooong
+   then foo

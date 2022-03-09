@@ -1,0 +1,35 @@
+diff --git a/discussions/if-then-else/after-alejandra.nix b/discussions/if-then-else/after-nixpkgs-fmt.nix
+index b479736..fedca4f 100644
+--- a/discussions/if-then-else/after-alejandra.nix
++++ b/discussions/if-then-else/after-nixpkgs-fmt.nix
+@@ -2,19 +2,15 @@
+   # small
+-  (
+-    if cond
+-    then foo
+-    else bar
+-  )
++  (if cond
++  then foo
++  else bar)
+ 
+   # nested
+-  (
+-    if cond
+-    then
+-      if looooooooooooooooooooooooooooooooooooooooooooooooooooong
+-      then foo
+-      else bar
+-    else if cond
+-    then foo
+-    else bar
+-  )
++  (if cond
++  then if
++    looooooooooooooooooooooooooooooooooooooooooooooooooooong
++  then foo
++  else bar
++  else if cond
++  then foo
++  else bar)
+ ]
