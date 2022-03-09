@@ -1,0 +1,315 @@
+diff --git a/monsters/single-line-comments-everywhere/after-nixpkgs-fmt.nix b/monsters/single-line-comments-everywhere/after-nixfmt.nix
+index 44e45f6..65b0817 100644
+--- a/monsters/single-line-comments-everywhere/after-nixpkgs-fmt.nix
++++ b/monsters/single-line-comments-everywhere/after-nixfmt.nix
+@@ -1,50 +1,65 @@
+ {
+-  # foo
+-  stdenv
+-  # foo
+-, # foo
+-  lib
+-  # foo
+-, # foo
+-  fetchFromGitLab
+-  # foo
+-, # foo
+-  cairo
+-  # foo
+-, # foo
+-  desktop-file-utils
+-  # foo
+-, # foo
+-  gettext
+-  # foo
+-, # foo
+-  glib
+-  # foo
+-, # foo
+-  gtk4
+-  # foo
+-, # foo
+-  libadwaita
+-  # foo
+-, # foo
+-  meson
+-  # foo
+-, # foo
+-  ninja
+-  # foo
+-, # foo
+-  pango
+-  # foo
+-, # foo
+-  pkg-config
+-  # foo
+-, # foo
+-  python3
+-  # foo
+-, # foo
+-  rustPlatform
+-  # foo
+-, # foo
+-  wrapGAppsHook4
+-  # foo
++# foo
++stdenv
++# foo
++,
++# foo
++lib
++# foo
++,
++# foo
++fetchFromGitLab
++# foo
++,
++# foo
++cairo
++# foo
++,
++# foo
++desktop-file-utils
++# foo
++,
++# foo
++gettext
++# foo
++,
++# foo
++glib
++# foo
++,
++# foo
++gtk4
++# foo
++,
++# foo
++libadwaita
++# foo
++,
++# foo
++meson
++# foo
++,
++# foo
++ninja
++# foo
++,
++# foo
++pango
++# foo
++,
++# foo
++pkg-config
++# foo
++,
++# foo
++python3
++# foo
++,
++# foo
++rustPlatform
++# foo
++,
++# foo
++wrapGAppsHook4
++# foo
+ }:
+@@ -52,5 +67,5 @@
+ stdenv.mkDerivation
+-  # foo
++# foo
+ rec
+-  # foo
++# foo
+ {
+@@ -58,3 +73,3 @@ rec
+   pname
+-    # foo
++  # foo
+     =
+@@ -64,3 +79,3 @@ rec
+   version
+-    # foo
++  # foo
+     =
+@@ -70,3 +85,3 @@ rec
+   src
+-    # foo
++  # foo
+     =
+@@ -74,45 +89,45 @@ rec
+     fetchFromGitLab
++    # foo
++    {
+       # foo
+-      {
+-        # foo
+-        domain
+-          # foo
+-          =
+-          # foo
+-          "gitlab.gnome.org";
++      domain
++      # foo
++        =
+         # foo
+-        group
+-          # foo
+-          =
+-          # foo
+-          "World";
++        "gitlab.gnome.org";
++      # foo
++      group
++      # foo
++        =
+         # foo
+-        owner
+-          # foo
+-          =
+-          # foo
+-          "design";
++        "World";
++      # foo
++      owner
++      # foo
++        =
+         # foo
+-        repo
+-          # foo
+-          =
+-          # foo
+-          "contrast";
++        "design";
++      # foo
++      repo
++      # foo
++        =
+         # foo
+-        rev
+-          # foo
+-          =
+-          # foo
+-          version;
++        "contrast";
++      # foo
++      rev
++      # foo
++        =
+         # foo
+-        sha256
+-          # foo
+-          =
+-          # foo
+-          "cypSbqLwSmauOoWOuppWpF3hvrxiqmkLspxAWzvlUC0=";
++        version;
++      # foo
++      sha256
++      # foo
++        =
+         # foo
+-      };
++        "cypSbqLwSmauOoWOuppWpF3hvrxiqmkLspxAWzvlUC0=";
++      # foo
++    };
+   # foo
+   cargoDeps
+-    # foo
++  # foo
+     =
+@@ -120,25 +135,25 @@ rec
+     rustPlatform.fetchCargoTarball
++    # foo
++    {
+       # foo
+-      {
+-        # foo
+-        inherit
+-          # foo
+-          src;
+-        # foo
+-        name
+-          # foo
+-          =
+-          # foo
+-          "${pname}-${version}";
++      inherit
++      # foo
++        src;
++      # foo
++      name
++      # foo
++        =
+         # foo
+-        hash
+-          # foo
+-          =
+-          # foo
+-          "sha256-W4FyqwJpimf0isQRCq9TegpTQPQfsumx40AFQCFG5VQ=";
++        "${pname}-${version}";
++      # foo
++      hash
++      # foo
++        =
+         # foo
+-      };
++        "sha256-W4FyqwJpimf0isQRCq9TegpTQPQfsumx40AFQCFG5VQ=";
++      # foo
++    };
+   # foo
+   nativeBuildInputs
+-    # foo
++  # foo
+     =
+@@ -175,3 +190,3 @@ rec
+   buildInputs
+-    # foo
++  # foo
+     =
+@@ -193,3 +208,3 @@ rec
+   postPatch
+-    # foo
++  # foo
+     =
+@@ -204,3 +219,3 @@ rec
+   meta
+-    # foo
++  # foo
+     =
+@@ -209,3 +224,3 @@ rec
+     # foo
+-    lib;
++      lib;
+     # foo
+@@ -214,3 +229,3 @@ rec
+       description
+-        # foo
++      # foo
+         =
+@@ -220,3 +235,3 @@ rec
+       homepage
+-        # foo
++      # foo
+         =
+@@ -226,3 +241,3 @@ rec
+       license
+-        # foo
++      # foo
+         =
+@@ -232,3 +247,3 @@ rec
+       maintainers
+-        # foo
++      # foo
+         =
+@@ -237,3 +252,3 @@ rec
+         # foo
+-        maintainers;
++          maintainers;
+         # foo
+@@ -246,3 +261,3 @@ rec
+       platforms
+-        # foo
++      # foo
+         =

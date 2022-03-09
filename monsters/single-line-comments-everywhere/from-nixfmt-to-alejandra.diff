@@ -1,0 +1,282 @@
+diff --git a/monsters/single-line-comments-everywhere/after-nixfmt.nix b/monsters/single-line-comments-everywhere/after-alejandra.nix
+index 65b0817..9a87685 100644
+--- a/monsters/single-line-comments-everywhere/after-nixfmt.nix
++++ b/monsters/single-line-comments-everywhere/after-alejandra.nix
+@@ -1,65 +1,50 @@
+ {
+-# foo
+-stdenv
+-# foo
+-,
+-# foo
+-lib
+-# foo
+-,
+-# foo
+-fetchFromGitLab
+-# foo
+-,
+-# foo
+-cairo
+-# foo
+-,
+-# foo
+-desktop-file-utils
+-# foo
+-,
+-# foo
+-gettext
+-# foo
+-,
+-# foo
+-glib
+-# foo
+-,
+-# foo
+-gtk4
+-# foo
+-,
+-# foo
+-libadwaita
+-# foo
+-,
+-# foo
+-meson
+-# foo
+-,
+-# foo
+-ninja
+-# foo
+-,
+-# foo
+-pango
+-# foo
+-,
+-# foo
+-pkg-config
+-# foo
+-,
+-# foo
+-python3
+-# foo
+-,
+-# foo
+-rustPlatform
+-# foo
+-,
+-# foo
+-wrapGAppsHook4
+-# foo
++  # foo
++  stdenv,
++  # foo
++  # foo
++  lib,
++  # foo
++  # foo
++  fetchFromGitLab,
++  # foo
++  # foo
++  cairo,
++  # foo
++  # foo
++  desktop-file-utils,
++  # foo
++  # foo
++  gettext,
++  # foo
++  # foo
++  glib,
++  # foo
++  # foo
++  gtk4,
++  # foo
++  # foo
++  libadwaita,
++  # foo
++  # foo
++  meson,
++  # foo
++  # foo
++  ninja,
++  # foo
++  # foo
++  pango,
++  # foo
++  # foo
++  pkg-config,
++  # foo
++  # foo
++  python3,
++  # foo
++  # foo
++  rustPlatform,
++  # foo
++  # foo
++  wrapGAppsHook4,
++  # foo
+ }:
+@@ -74,3 +59,3 @@ rec
+   # foo
+-    =
++  =
+     # foo
+@@ -80,3 +65,3 @@ rec
+   # foo
+-    =
++  =
+     # foo
+@@ -86,3 +71,3 @@ rec
+   # foo
+-    =
++  =
+     # foo
+@@ -94,3 +79,3 @@ rec
+       # foo
+-        =
++      =
+         # foo
+@@ -100,3 +85,3 @@ rec
+       # foo
+-        =
++      =
+         # foo
+@@ -106,3 +91,3 @@ rec
+       # foo
+-        =
++      =
+         # foo
+@@ -112,3 +97,3 @@ rec
+       # foo
+-        =
++      =
+         # foo
+@@ -118,3 +103,3 @@ rec
+       # foo
+-        =
++      =
+         # foo
+@@ -124,3 +109,3 @@ rec
+       # foo
+-        =
++      =
+         # foo
+@@ -132,3 +117,3 @@ rec
+   # foo
+-    =
++  =
+     # foo
+@@ -139,4 +124,5 @@ rec
+       inherit
+-      # foo
+-        src;
++        # foo
++        src
++        ;
+       # foo
+@@ -144,3 +130,3 @@ rec
+       # foo
+-        =
++      =
+         # foo
+@@ -150,3 +136,3 @@ rec
+       # foo
+-        =
++      =
+         # foo
+@@ -158,3 +144,3 @@ rec
+   # foo
+-    =
++  =
+     # foo
+@@ -191,3 +177,3 @@ rec
+   # foo
+-    =
++  =
+     # foo
+@@ -209,3 +195,3 @@ rec
+   # foo
+-    =
++  =
+     # foo
+@@ -220,3 +206,3 @@ rec
+   # foo
+-    =
++  =
+     # foo
+@@ -224,45 +210,45 @@ rec
+     # foo
+-      lib;
++    lib;
+     # foo
+-    {
+-      # foo
+-      description
+-      # foo
+-        =
++      {
+         # foo
+-        "Checks whether the contrast between two colors meet the WCAG requirements";
+-      # foo
+-      homepage
+-      # foo
+-        =
++        description
+         # foo
+-        "https://gitlab.gnome.org/World/design/contrast";
+-      # foo
+-      license
+-      # foo
+         =
++          # foo
++          "Checks whether the contrast between two colors meet the WCAG requirements";
++        # foo
++        homepage
+         # foo
+-        licenses.gpl3Plus;
+-      # foo
+-      maintainers
+-      # foo
+         =
++          # foo
++          "https://gitlab.gnome.org/World/design/contrast";
+         # foo
+-        with
++        license
+         # foo
+-          maintainers;
++        =
++          # foo
++          licenses.gpl3Plus;
++        # foo
++        maintainers
+         # foo
+-        [
++        =
+           # foo
+-          jtojnar
++          with
+           # foo
+-        ];
+-      # foo
+-      platforms
+-      # foo
++          maintainers;
++          # foo
++            [
++              # foo
++              jtojnar
++              # foo
++            ];
++        # foo
++        platforms
++        # foo
+         =
++          # foo
++          platforms.unix;
+         # foo
+-        platforms.unix;
+-      # foo
+-    };
++      };
+   # foo
