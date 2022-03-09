@@ -1,0 +1,329 @@
+diff --git a/monsters/single-line-comments-everywhere/after-alejandra.nix b/monsters/single-line-comments-everywhere/after-nixpkgs-fmt.nix
+index 9a87685..44e45f6 100644
+--- a/monsters/single-line-comments-everywhere/after-alejandra.nix
++++ b/monsters/single-line-comments-everywhere/after-nixpkgs-fmt.nix
+@@ -2,48 +2,48 @@
+   # foo
+-  stdenv,
++  stdenv
+   # foo
++, # foo
++  lib
+   # foo
+-  lib,
++, # foo
++  fetchFromGitLab
+   # foo
++, # foo
++  cairo
+   # foo
+-  fetchFromGitLab,
++, # foo
++  desktop-file-utils
+   # foo
++, # foo
++  gettext
+   # foo
+-  cairo,
++, # foo
++  glib
+   # foo
++, # foo
++  gtk4
+   # foo
+-  desktop-file-utils,
++, # foo
++  libadwaita
+   # foo
++, # foo
++  meson
+   # foo
+-  gettext,
++, # foo
++  ninja
+   # foo
++, # foo
++  pango
+   # foo
+-  glib,
++, # foo
++  pkg-config
+   # foo
++, # foo
++  python3
+   # foo
+-  gtk4,
++, # foo
++  rustPlatform
+   # foo
+-  # foo
+-  libadwaita,
+-  # foo
+-  # foo
+-  meson,
+-  # foo
+-  # foo
+-  ninja,
+-  # foo
+-  # foo
+-  pango,
+-  # foo
+-  # foo
+-  pkg-config,
+-  # foo
+-  # foo
+-  python3,
+-  # foo
+-  # foo
+-  rustPlatform,
+-  # foo
+-  # foo
+-  wrapGAppsHook4,
++, # foo
++  wrapGAppsHook4
+   # foo
+@@ -52,5 +52,5 @@
+ stdenv.mkDerivation
+-# foo
++  # foo
+ rec
+-# foo
++  # foo
+ {
+@@ -58,4 +58,4 @@ rec
+   pname
+-  # foo
+-  =
++    # foo
++    =
+     # foo
+@@ -64,4 +64,4 @@ rec
+   version
+-  # foo
+-  =
++    # foo
++    =
+     # foo
+@@ -70,77 +70,76 @@ rec
+   src
+-  # foo
+-  =
+     # foo
+-    fetchFromGitLab
++    =
+     # foo
+-    {
+-      # foo
+-      domain
++    fetchFromGitLab
+       # foo
+-      =
++      {
+         # foo
+-        "gitlab.gnome.org";
+-      # foo
+-      group
+-      # foo
+-      =
++        domain
++          # foo
++          =
++          # foo
++          "gitlab.gnome.org";
+         # foo
+-        "World";
+-      # foo
+-      owner
+-      # foo
+-      =
++        group
++          # foo
++          =
++          # foo
++          "World";
+         # foo
+-        "design";
+-      # foo
+-      repo
+-      # foo
+-      =
++        owner
++          # foo
++          =
++          # foo
++          "design";
+         # foo
+-        "contrast";
+-      # foo
+-      rev
+-      # foo
+-      =
++        repo
++          # foo
++          =
++          # foo
++          "contrast";
+         # foo
+-        version;
+-      # foo
+-      sha256
+-      # foo
+-      =
++        rev
++          # foo
++          =
++          # foo
++          version;
+         # foo
+-        "cypSbqLwSmauOoWOuppWpF3hvrxiqmkLspxAWzvlUC0=";
+-      # foo
+-    };
++        sha256
++          # foo
++          =
++          # foo
++          "cypSbqLwSmauOoWOuppWpF3hvrxiqmkLspxAWzvlUC0=";
++        # foo
++      };
+   # foo
+   cargoDeps
+-  # foo
+-  =
+     # foo
+-    rustPlatform.fetchCargoTarball
++    =
+     # foo
+-    {
++    rustPlatform.fetchCargoTarball
+       # foo
+-      inherit
++      {
+         # foo
+-        src
+-        ;
+-      # foo
+-      name
+-      # foo
+-      =
++        inherit
++          # foo
++          src;
+         # foo
+-        "${pname}-${version}";
+-      # foo
+-      hash
+-      # foo
+-      =
++        name
++          # foo
++          =
++          # foo
++          "${pname}-${version}";
+         # foo
+-        "sha256-W4FyqwJpimf0isQRCq9TegpTQPQfsumx40AFQCFG5VQ=";
+-      # foo
+-    };
++        hash
++          # foo
++          =
++          # foo
++          "sha256-W4FyqwJpimf0isQRCq9TegpTQPQfsumx40AFQCFG5VQ=";
++        # foo
++      };
+   # foo
+   nativeBuildInputs
+-  # foo
+-  =
++    # foo
++    =
+     # foo
+@@ -176,4 +175,4 @@ rec
+   buildInputs
+-  # foo
+-  =
++    # foo
++    =
+     # foo
+@@ -194,4 +193,4 @@ rec
+   postPatch
+-  # foo
+-  =
++    # foo
++    =
+     # foo
+@@ -205,4 +204,4 @@ rec
+   meta
+-  # foo
+-  =
++    # foo
++    =
+     # foo
+@@ -212,43 +211,43 @@ rec
+     # foo
+-      {
+-        # foo
+-        description
++    {
++      # foo
++      description
+         # foo
+         =
+-          # foo
+-          "Checks whether the contrast between two colors meet the WCAG requirements";
+         # foo
+-        homepage
++        "Checks whether the contrast between two colors meet the WCAG requirements";
++      # foo
++      homepage
+         # foo
+         =
+-          # foo
+-          "https://gitlab.gnome.org/World/design/contrast";
+         # foo
+-        license
++        "https://gitlab.gnome.org/World/design/contrast";
++      # foo
++      license
+         # foo
+         =
+-          # foo
+-          licenses.gpl3Plus;
+         # foo
+-        maintainers
++        licenses.gpl3Plus;
++      # foo
++      maintainers
+         # foo
+         =
++        # foo
++        with
++        # foo
++        maintainers;
++        # foo
++        [
+           # foo
+-          with
+-          # foo
+-          maintainers;
++          jtojnar
+           # foo
+-            [
+-              # foo
+-              jtojnar
+-              # foo
+-            ];
+-        # foo
+-        platforms
++        ];
++      # foo
++      platforms
+         # foo
+         =
+-          # foo
+-          platforms.unix;
+         # foo
+-      };
++        platforms.unix;
++      # foo
++    };
+   # foo

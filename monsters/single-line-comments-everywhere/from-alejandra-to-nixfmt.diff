@@ -1,0 +1,282 @@
+diff --git a/monsters/single-line-comments-everywhere/after-alejandra.nix b/monsters/single-line-comments-everywhere/after-nixfmt.nix
+index 9a87685..65b0817 100644
+--- a/monsters/single-line-comments-everywhere/after-alejandra.nix
++++ b/monsters/single-line-comments-everywhere/after-nixfmt.nix
+@@ -1,50 +1,65 @@
+ {
+-  # foo
+-  stdenv,
+-  # foo
+-  # foo
+-  lib,
+-  # foo
+-  # foo
+-  fetchFromGitLab,
+-  # foo
+-  # foo
+-  cairo,
+-  # foo
+-  # foo
+-  desktop-file-utils,
+-  # foo
+-  # foo
+-  gettext,
+-  # foo
+-  # foo
+-  glib,
+-  # foo
+-  # foo
+-  gtk4,
+-  # foo
+-  # foo
+-  libadwaita,
+-  # foo
+-  # foo
+-  meson,
+-  # foo
+-  # foo
+-  ninja,
+-  # foo
+-  # foo
+-  pango,
+-  # foo
+-  # foo
+-  pkg-config,
+-  # foo
+-  # foo
+-  python3,
+-  # foo
+-  # foo
+-  rustPlatform,
+-  # foo
+-  # foo
+-  wrapGAppsHook4,
+-  # foo
++# foo
++stdenv
++# foo
++,
++# foo
++lib
++# foo
++,
++# foo
++fetchFromGitLab
++# foo
++,
++# foo
++cairo
++# foo
++,
++# foo
++desktop-file-utils
++# foo
++,
++# foo
++gettext
++# foo
++,
++# foo
++glib
++# foo
++,
++# foo
++gtk4
++# foo
++,
++# foo
++libadwaita
++# foo
++,
++# foo
++meson
++# foo
++,
++# foo
++ninja
++# foo
++,
++# foo
++pango
++# foo
++,
++# foo
++pkg-config
++# foo
++,
++# foo
++python3
++# foo
++,
++# foo
++rustPlatform
++# foo
++,
++# foo
++wrapGAppsHook4
++# foo
+ }:
+@@ -59,3 +74,3 @@ rec
+   # foo
+-  =
++    =
+     # foo
+@@ -65,3 +80,3 @@ rec
+   # foo
+-  =
++    =
+     # foo
+@@ -71,3 +86,3 @@ rec
+   # foo
+-  =
++    =
+     # foo
+@@ -79,3 +94,3 @@ rec
+       # foo
+-      =
++        =
+         # foo
+@@ -85,3 +100,3 @@ rec
+       # foo
+-      =
++        =
+         # foo
+@@ -91,3 +106,3 @@ rec
+       # foo
+-      =
++        =
+         # foo
+@@ -97,3 +112,3 @@ rec
+       # foo
+-      =
++        =
+         # foo
+@@ -103,3 +118,3 @@ rec
+       # foo
+-      =
++        =
+         # foo
+@@ -109,3 +124,3 @@ rec
+       # foo
+-      =
++        =
+         # foo
+@@ -117,3 +132,3 @@ rec
+   # foo
+-  =
++    =
+     # foo
+@@ -124,5 +139,4 @@ rec
+       inherit
+-        # foo
+-        src
+-        ;
++      # foo
++        src;
+       # foo
+@@ -130,3 +144,3 @@ rec
+       # foo
+-      =
++        =
+         # foo
+@@ -136,3 +150,3 @@ rec
+       # foo
+-      =
++        =
+         # foo
+@@ -144,3 +158,3 @@ rec
+   # foo
+-  =
++    =
+     # foo
+@@ -177,3 +191,3 @@ rec
+   # foo
+-  =
++    =
+     # foo
+@@ -195,3 +209,3 @@ rec
+   # foo
+-  =
++    =
+     # foo
+@@ -206,3 +220,3 @@ rec
+   # foo
+-  =
++    =
+     # foo
+@@ -210,45 +224,45 @@ rec
+     # foo
+-    lib;
++      lib;
+     # foo
+-      {
+-        # foo
+-        description
+-        # foo
++    {
++      # foo
++      description
++      # foo
+         =
+-          # foo
+-          "Checks whether the contrast between two colors meet the WCAG requirements";
+-        # foo
+-        homepage
+         # foo
++        "Checks whether the contrast between two colors meet the WCAG requirements";
++      # foo
++      homepage
++      # foo
+         =
+-          # foo
+-          "https://gitlab.gnome.org/World/design/contrast";
+         # foo
+-        license
++        "https://gitlab.gnome.org/World/design/contrast";
++      # foo
++      license
++      # foo
++        =
+         # foo
++        licenses.gpl3Plus;
++      # foo
++      maintainers
++      # foo
+         =
+-          # foo
+-          licenses.gpl3Plus;
+         # foo
+-        maintainers
++        with
+         # foo
+-        =
+-          # foo
+-          with
+-          # foo
+           maintainers;
+-          # foo
+-            [
+-              # foo
+-              jtojnar
+-              # foo
+-            ];
+-        # foo
+-        platforms
+         # foo
+-        =
++        [
+           # foo
+-          platforms.unix;
++          jtojnar
++          # foo
++        ];
++      # foo
++      platforms
++      # foo
++        =
+         # foo
+-      };
++        platforms.unix;
++      # foo
++    };
+   # foo

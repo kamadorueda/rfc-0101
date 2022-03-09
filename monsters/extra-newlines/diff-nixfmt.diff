@@ -1,0 +1,451 @@
+diff --git a/monsters/extra-newlines/before.nix b/monsters/extra-newlines/after-nixfmt.nix
+index 54ed128..a63065f 100644
+--- a/monsters/extra-newlines/before.nix
++++ b/monsters/extra-newlines/after-nixfmt.nix
+@@ -14,3 +14,3 @@ with
+ 
+-lib;
++  lib;
+ 
+@@ -18,52 +18,31 @@ let
+ 
++  inherit
+ 
++  (config.boot)
+ 
++    kernelPatches;
+ 
++  inherit
+ 
+-inherit
++  (config.boot.kernel)
+ 
+-(config.boot)
++    features
+ 
+-kernelPatches;
++    randstructSeed;
+ 
++  inherit
+ 
++  (config.boot.kernelPackages)
+ 
++    kernel;
+ 
+-inherit
++  kernelModulesConf
+ 
+-(config.boot.kernel)
++    =
+ 
+-features
++    pkgs.writeText
+ 
+-randstructSeed;
++    "nixos.conf"
+ 
+-
+-
+-
+-inherit
+-
+-(config.boot.kernelPackages)
+-
+-kernel;
+-
+-
+-
+-
+-
+-kernelModulesConf
+-
+-=
+-
+-pkgs.writeText
+-
+-"nixos.conf"
+-
+-
+-
+-
+-
+-
+-
+-
+-''
++    ''
+       ${concatStringsSep "\n" config.boot.kernelModules}
+@@ -71,257 +50,213 @@ pkgs.writeText
+ 
+-in
+-
+-{
+-
+-
+-
+-
+-
+-###### interface
++in {
+ 
++  ###### interface
+ 
++  options
+ 
++    =
+ 
++    {
+ 
+-options
++      boot.kernel.features
+ 
+-=
++        =
+ 
+-{
++        mkOption
+ 
++        {
+ 
++          default
+ 
++            =
+ 
++            { };
+ 
++          example
+ 
++            =
+ 
++            literalExpression
+ 
++            "{debug= true;}";
+ 
+-boot.kernel.features
++          internal
+ 
+-=
++            =
+ 
+-mkOption
++            true;
+ 
+-{
++          description
+ 
++            =
+ 
+-default
++            ''
++              This option allows to enable or disable certain kernel features.
++              It's not API, because it's about kernel feature sets, that
++              make sense for specific use cases. Mostly along with programs,
++              which would have separate nixos options.
++              `grep features pkgs/os-specific/linux/kernel/common-config.nix`
++            '';
+ 
+-=
++        };
+ 
+-{};
++      boot.kernelPackages
+ 
++        =
+ 
+-example
++        mkOption
+ 
+-=
++        {
+ 
+-literalExpression
++          default
+ 
+-"{debug= true;}";
++            =
+ 
++            pkgs.linuxPackages;
+ 
+-internal
++          type
+ 
+-=
++            =
+ 
+-true;
++            types.unspecified
+ 
++            //
+ 
+-description
++            {
+ 
+-=
++              merge
+ 
+-''
+-        This option allows to enable or disable certain kernel features.
+-        It's not API, because it's about kernel feature sets, that
+-        make sense for specific use cases. Mostly along with programs,
+-        which would have separate nixos options.
+-        `grep features pkgs/os-specific/linux/kernel/common-config.nix`
+-      '';
++                =
+ 
++                mergeEqualOption;
+ 
+-};
++            };
+ 
++          apply
+ 
++            =
+ 
+-boot.kernelPackages
++            kernelPackages:
+ 
+-=
++            kernelPackages.extend
+ 
+-mkOption
++            (self:
+ 
+-{
++              super:
+ 
++              {
+ 
+-default
++                kernel
+ 
+-=
++                  =
+ 
+-pkgs.linuxPackages;
++                  super.kernel.override
+ 
++                  (originalArgs:
+ 
+-type
++                    {
+ 
+-=
++                      inherit
+ 
+-types.unspecified
++                        randstructSeed;
+ 
+-//
++                      kernelPatches
+ 
+-{
++                        =
+ 
+-merge
++                        (originalArgs.kernelPatches
+ 
+-=
++                          or
+ 
+-mergeEqualOption;
++                          [ ])
+ 
+-};
++                        ++
+ 
++                        kernelPatches;
+ 
+-apply
++                      features
+ 
+-=
++                        =
+ 
+-kernelPackages:
++                        lib.recursiveUpdate
+ 
+-kernelPackages.extend
++                        super.kernel.features
+ 
+-(self:
++                        features;
+ 
+-super:
++                    });
+ 
+-{
++              });
+ 
++          # We don't want to evaluate all of linuxPackages for the manual
++          # - some of it might not even evaluate correctly.
+ 
+-kernel
++          defaultText
+ 
+-=
+-
+-super.kernel.override
+-
+-(originalArgs:
+-
+-{
++            =
+ 
++            literalExpression
+ 
+-inherit
++            "pkgs.linuxPackages";
+ 
+-randstructSeed;
++          example
+ 
++            =
+ 
+-kernelPatches
++            literalExpression
+ 
+-=
++            "pkgs.linuxKernel.packages.linux_5_10";
+ 
+-(originalArgs.kernelPatches
++          description
+ 
+-or
++            =
+ 
+-[])
++            ''
++              This option allows you to override the Linux kernel used by
++              NixOS.  Since things like external kernel module packages are
++              tied to the kernel you're using, it also overrides those.
++              This option is a function that takes Nixpkgs as an argument
++              (as a convenience), and returns an attribute set containing at
++              the very least an attribute <varname>kernel</varname>.
++              Additional attributes may be needed depending on your
++              configuration.  For instance, if you use the NVIDIA X driver,
++              then it also needs to contain an attribute
++              <varname>nvidia_x11</varname>.
++            '';
+ 
+-++
++        };
+ 
+-kernelPatches;
++      boot.kernelPatches
+ 
++        =
+ 
+-features
++        mkOption
+ 
+-=
++        {
+ 
+-lib.recursiveUpdate
++          type
+ 
+-super.kernel.features
++            =
+ 
+-features;
++            types.listOf
+ 
++            types.attrs;
+ 
+-});
++          default
+ 
++            =
+ 
+-});
++            [ ];
+ 
++          example
+ 
+-# We don't want to evaluate all of linuxPackages for the manual
+-      # - some of it might not even evaluate correctly.
++            =
+ 
++            literalExpression
+ 
+-defaultText
++            "[ pkgs.kernelPatches.ubuntu_fan_4_4 ]";
++          description = "A list of additional patches to apply to the kernel.";
++        };
+ 
+-=
+-
+-literalExpression
+-
+-"pkgs.linuxPackages";
+-
+-
+-example
+-
+-=
+-
+-literalExpression
+-
+-"pkgs.linuxKernel.packages.linux_5_10";
+-
+-
+-description
+-
+-=
+-
+-''
+-        This option allows you to override the Linux kernel used by
+-        NixOS.  Since things like external kernel module packages are
+-        tied to the kernel you're using, it also overrides those.
+-        This option is a function that takes Nixpkgs as an argument
+-        (as a convenience), and returns an attribute set containing at
+-        the very least an attribute <varname>kernel</varname>.
+-        Additional attributes may be needed depending on your
+-        configuration.  For instance, if you use the NVIDIA X driver,
+-        then it also needs to contain an attribute
+-        <varname>nvidia_x11</varname>.
+-      '';
+-
+-
+-};
+-
+-
+-
+-boot.kernelPatches
+-
+-=
+-
+-mkOption
+-
+-{
+-
+-
+-type
+-
+-=
+-
+-types.listOf
+-
+-types.attrs;
+-
+-
+-default
+-
+-=
+-
+-[];
+-
+-
+-example
+-
+-=
+-
+-literalExpression
+-
+-"[ pkgs.kernelPatches.ubuntu_fan_4_4 ]";
+-      description = "A list of additional patches to apply to the kernel.";
+     };
+-
+-
+-};}
++}
