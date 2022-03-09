@@ -1,0 +1,11 @@
+diff --git a/discussions/whitespaces/after-nixpkgs-fmt.nix b/discussions/whitespaces/after-nixfmt.nix
+index abd9345..b52f611 100644
+--- a/discussions/whitespaces/after-nixpkgs-fmt.nix
++++ b/discussions/whitespaces/after-nixfmt.nix
+@@ -18,4 +18,4 @@
+   # Whitespace in function signatures
+-  (a@{}: _)
+-  ({}@a: _)
++  (a@{ }: _)
++  ({ }@a: _)
+   ({ a }@b: _)

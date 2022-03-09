@@ -1,0 +1,34 @@
+diff --git a/discussions/whitespaces/before.nix b/discussions/whitespaces/after-nixfmt.nix
+index bc416ed..b52f611 100644
+--- a/discussions/whitespaces/before.nix
++++ b/discussions/whitespaces/after-nixfmt.nix
+@@ -2,4 +2,4 @@
+   # Whitespace in lists
+-  []
+-  [1]
++  [ ]
++  [ 1 ]
+   [
+@@ -10,7 +10,7 @@
+   # Whitespace in attribute sets
+-  {}
+-  {foo=bar;}
++  { }
++  { foo = bar; }
+   {
+-    foo=bar;
+-    bar=baz;
++    foo = bar;
++    bar = baz;
+   }
+@@ -18,6 +18,6 @@
+   # Whitespace in function signatures
+-  (a@{}: _)
+-  ({}@a: _)
+-  ({a}@b: _)
+-  ({a}@b: _)
++  (a@{ }: _)
++  ({ }@a: _)
++  ({ a }@b: _)
++  ({ a }@b: _)
+ ]
