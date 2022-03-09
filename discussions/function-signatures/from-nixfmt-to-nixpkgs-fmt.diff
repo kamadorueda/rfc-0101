@@ -1,0 +1,36 @@
+diff --git a/discussions/function-signatures/after-nixfmt.nix b/discussions/function-signatures/after-nixpkgs-fmt.nix
+index f209248..72e5e11 100644
+--- a/discussions/function-signatures/after-nixfmt.nix
++++ b/discussions/function-signatures/after-nixpkgs-fmt.nix
+@@ -5,13 +5,24 @@
+   # Short that was multi-line
+-  ({ nixpkgs, ... }@attrs: nixpkgs)
++  ({ nixpkgs
++   , ...
++   }@attrs: nixpkgs)
+ 
+   # Long that was single-line
+-  (attrs@{ stdenv, lib, gcc, coreutils, gnufind, gnugrep, gnumake, gnutar, gnupg
+-    , gnused, gnuk, gnubg, ... }:
+-    stdenv)
++  (attrs@{ stdenv, lib, gcc, coreutils, gnufind, gnugrep, gnumake, gnutar, gnupg, gnused, gnuk, gnubg, ... }: stdenv)
+ 
+   # Long that was multi-line
+-  (attrs@{ stdenv, lib, gcc, coreutils, gnufind, gnugrep, gnumake, gnutar, gnupg
+-    , gnused, gnuk, gnubg, ... }:
+-    stdenv)
++  (attrs@{ stdenv
++   , lib
++   , gcc
++   , coreutils
++   , gnufind
++   , gnugrep
++   , gnumake
++   , gnutar
++   , gnupg
++   , gnused
++   , gnuk
++   , gnubg
++   , ...
++   }: stdenv)
+ ]

@@ -1,12 +1,52 @@
 diff --git a/discussions/function-signatures/after-alejandra.nix b/discussions/function-signatures/after-nixfmt.nix
-index e6f58b2..91ada2b 100644
+index 4299091..f209248 100644
 --- a/discussions/function-signatures/after-alejandra.nix
 +++ b/discussions/function-signatures/after-nixfmt.nix
-@@ -1,6 +1 @@
--{
--  foo,
--  bar,
--  baz,
--}:
--foo
-+{ foo, bar, baz }: foo
+@@ -2,23 +2,10 @@
+   # Short that was single-line
+-  ({nixpkgs, ...} @ attrs: nixpkgs)
++  ({ nixpkgs, ... }@attrs: nixpkgs)
+ 
+   # Short that was multi-line
+-  ({nixpkgs, ...} @ attrs: nixpkgs)
++  ({ nixpkgs, ... }@attrs: nixpkgs)
+ 
+   # Long that was single-line
+-  (attrs @ {
+-    stdenv,
+-    lib,
+-    gcc,
+-    coreutils,
+-    gnufind,
+-    gnugrep,
+-    gnumake,
+-    gnutar,
+-    gnupg,
+-    gnused,
+-    gnuk,
+-    gnubg,
+-    ...
+-  }:
++  (attrs@{ stdenv, lib, gcc, coreutils, gnufind, gnugrep, gnumake, gnutar, gnupg
++    , gnused, gnuk, gnubg, ... }:
+     stdenv)
+@@ -26,17 +13,4 @@
+   # Long that was multi-line
+-  (attrs @ {
+-    stdenv,
+-    lib,
+-    gcc,
+-    coreutils,
+-    gnufind,
+-    gnugrep,
+-    gnumake,
+-    gnutar,
+-    gnupg,
+-    gnused,
+-    gnuk,
+-    gnubg,
+-    ...
+-  }:
++  (attrs@{ stdenv, lib, gcc, coreutils, gnufind, gnugrep, gnumake, gnutar, gnupg
++    , gnused, gnuk, gnubg, ... }:
+     stdenv)
