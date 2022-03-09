@@ -76,7 +76,9 @@
               > $dirname/after-$fmt.nix
             ($diff $dirname/before.nix $dirname/after-$fmt.nix || true) \
               > $dirname/diff-$fmt.diff
+          done
 
+          for fmt in alejandra nixfmt nixpkgs-fmt; do
             for fmt2 in alejandra nixfmt nixpkgs-fmt; do
               if test $fmt != $fmt2; then
                 ($diff $dirname/after-$fmt.nix $dirname/after-$fmt2.nix || true) \
