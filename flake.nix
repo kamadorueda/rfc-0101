@@ -2,7 +2,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable-small";
 
-    alejandra.url = "github:kamadorueda/alejandra/1.4.0";
+    alejandra.url = "github:kamadorueda/alejandra/1.5.0";
     alejandra.inputs.nixpkgs.follows = "nixpkgs";
     nixfmt.url = "github:serokell/nixfmt/v0.5.0";
     nixfmt.inputs.nixpkgs.follows = "nixpkgs";
